@@ -2,6 +2,8 @@
 #define MAINWINDOW_H
 
 #include <QMainWindow>
+#include <QFileDialog>
+#include <QDebug>
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
@@ -17,6 +19,8 @@ public:
 
 private slots:
     void on_addVideoButton_clicked();
+
+    void on_browseButton_1_clicked();
 
 private:
     Ui::MainWindow *ui;
