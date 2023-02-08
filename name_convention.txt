@@ -1,0 +1,17 @@
+Window object:
+    - should be capitalized each word, ended by 'window'
+    - MainWindow, EntryWindow, EditWindow
+
+Widget object:
+    - should be capitalized each word, follow by '_typeName'
+    - Button1_pushButton, CheckBox1_checkBox, Name_label, FilePath_lineEdit
+
+functions:
+    - lower case first word, then capitalized
+    - thisIsAFunction, createNewWindow, goToSchool
+
+variables:
+    - all lower case and seperated by underscore
+    _ MainWindow window_h;
+    - String file_path;
+    - int number_of_file;
