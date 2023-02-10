@@ -15,23 +15,4 @@ MainWindow::~MainWindow()
 }
 
 
-void MainWindow::on_addVideoButton_clicked()
-{
-
-}
-
-
-void MainWindow::on_browseButton_1_clicked()
-{
-    QUrl homePath = QUrl("\Videos");
-    QString videoPath = QFileDialog::getOpenFileName(
-                this,
-                tr("Select Video"),
-                "./Videos",
-                tr("Video Files (*.mp4 *.avi *.mov)")
-                );
-    ui->videoPathLine_1->setText(videoPath);
-    //qDebug()<<videoPath;
-
-}
 

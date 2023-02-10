@@ -18,9 +18,6 @@ public:
     ~MainWindow();
 
 private slots:
-    void on_addVideoButton_clicked();
-
-    void on_browseButton_1_clicked();
 
 private:
     Ui::MainWindow *ui;
