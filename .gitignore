@@ -2,3 +2,12 @@ build-ConfigurationApp-Desktop_arm_darwin_generic_mach_o_64bit-Debug/
 build-ConfigurationApp-Desktop_Qt_6_4_1_MinGW_64_bit-Debug/
 *.idx
 .DS_Store
+*.o
+*.plist
+*.lproj
+*.stash
+build-ConfigurationApp-Qt_6_4_2_for_macOS-Debug/.qtc_clangd/compile_commands.json
+build-ConfigurationApp-Qt_6_4_2_for_macOS-Debug/ConfigurationApp.app/Contents/PkgInfo
+build-ConfigurationApp-Qt_6_4_2_for_macOS-Debug/Makefile
+Build-Release/ConfigurationApp.app/Contents/PkgInfo
+Build-Release/Makefile
