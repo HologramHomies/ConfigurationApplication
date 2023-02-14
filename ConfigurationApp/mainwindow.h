@@ -17,6 +17,12 @@ public:
     MainWindow(QWidget *parent = nullptr);
     ~MainWindow();
 
+
+    //Felipe Functions
+    void onAddWidgets();
+    void addProperties(QWidget * newWidget, QWidget * existingWidget);
+
+
 private slots:
 
 private:
