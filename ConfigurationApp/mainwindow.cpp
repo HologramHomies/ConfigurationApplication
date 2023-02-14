@@ -3,11 +3,14 @@
 #include "ui_mainwindow.h"
 
 
+int totalVideos =1;
+
+
 MainWindow::MainWindow(QWidget * parent): QMainWindow(parent), ui(new Ui::MainWindow) {
   ui -> setupUi(this);
 
   QObject::connect(
-    ui -> addBut_Button, & QPushButton::clicked,
+    ui -> addButton_pushButton, & QPushButton::clicked,
     this, & MainWindow::onAddWidgets
   );
 }
@@ -19,17 +22,32 @@ MainWindow::~MainWindow() {
 void MainWindow::addProperties(QWidget * newWidget, QWidget * existingWidget) {
   newWidget -> setGeometry(existingWidget -> geometry());
   newWidget -> setMinimumSize(existingWidget -> minimumSize());
-  newWidget -> setEnabled(existingWidget -> isEnabled());
+  newWidget -> setEnabled(true);
   newWidget -> setFont(existingWidget -> font());
   newWidget -> setPalette(existingWidget -> palette());
   newWidget -> setStyleSheet(existingWidget -> styleSheet());
   newWidget -> setSizePolicy(existingWidget -> sizePolicy());
   newWidget -> setContentsMargins(existingWidget -> contentsMargins());
-
 }
 
 void MainWindow::onAddWidgets() {
-  //Casting the Original vertical layout and the GroupBox within the layout
+    /*
+     * TODO
+     * VERY IMPORTANT
+     * Add Functionality to new widgets being created
+     * Create a data structure where these new buttons are added
+     * Save any new video button data that will be inserted
+     *
+     * NOT SO IMPORTANT
+     * Make new video button font size the same
+
+*/
+    totalVideos++;
+
+
+
+
+  //Casting the Original vertical layout and the GroupBox within the Scroll Area layout
   QVBoxLayout * layout = qobject_cast < QVBoxLayout * > (ui -> scrollAreaWidgetContents ->layout());
   QGroupBox * existingGroupBox = ui -> originalGroupBox;
 
@@ -38,7 +56,6 @@ void MainWindow::onAddWidgets() {
     qDebug() << "GroupBox is invalid or does not exist";
     return;
   }
-
   QGridLayout * existingLayout = dynamic_cast < QGridLayout * > (existingGroupBox -> layout());
   if (!existingLayout) {
     qDebug() << "Groupbox has an invalid layout";
@@ -48,13 +65,13 @@ void MainWindow::onAddWidgets() {
   QGroupBox * newGroupBox = new QGroupBox();
 
   //Replicating properties to new GroupBox
-  newGroupBox -> setTitle(existingGroupBox -> title());
+  newGroupBox -> setTitle("Button #"+QString::number(totalVideos));
   newGroupBox -> setContentsMargins(existingGroupBox -> contentsMargins());
   newGroupBox -> setAlignment(existingGroupBox -> alignment());
-  //    newGroupBox->setCheckable(existingGroupBox->isCheckable());
-  //    newGroupBox->setChecked(existingGroupBox->isChecked());
+  //newGroupBox->setCheckable(existingGroupBox->isCheckable());
+  //newGroupBox->setChecked(existingGroupBox->isChecked());
   newGroupBox -> setFlat(existingGroupBox -> isFlat());
-  //    newGroupBox->setEnabled(existingGroupBox->isEnabled());
+  //newGroupBox->setEnabled(existingGroupBox->isEnabled());
   //newGroupBox->setLayout(existingGroupBox->layout());
 
   //Creating and replicating layout from the original
@@ -62,18 +79,16 @@ void MainWindow::onAddWidgets() {
   newLayout -> setHorizontalSpacing(existingLayout -> horizontalSpacing());
   newLayout -> setVerticalSpacing(existingLayout -> verticalSpacing());
 
-  //WARNING MUST MAKE SURE SECOND ITERATION WORKS
-   qDebug() << "Check";
+  /*The following will grab the standalone widgets from the original
+    group box and add them to the new groupbox*/
   QLayoutItem * videoLabel = existingLayout -> itemAtPosition(0, 0);
   QLayoutItem * largePrevButton = existingLayout -> itemAtPosition(1, 0);
-
 
   QWidget * existingLabelWidget = videoLabel -> widget();
   QWidget * existingPrevButton = largePrevButton -> widget();
 
   QLabel * label = qobject_cast < QLabel * > (existingLabelWidget);
   QPushButton * pushButton = dynamic_cast < QPushButton * > (existingPrevButton);
-     qDebug() << "Check";
 
   QLabel * vidLabel = new QLabel();
   QPushButton * prevBut = new QPushButton();
@@ -91,25 +106,22 @@ void MainWindow::onAddWidgets() {
   QHBoxLayout * buttonSettings = dynamic_cast < QHBoxLayout * > (existingLayout -> itemAtPosition(1, 1));
   QHBoxLayout * buttonSettingsLayout = new QHBoxLayout();
 
-
-  int count = buttonSettings -> count();
-
-  for (int i = 0; i < count; i++) {
+  /*This for loop will iterate through all the widgets in the HLayout that is
+   * in the groupbox. This will include the video button settings*/
+  for (int i = 0; i < buttonSettings -> count(); i++) {
     QLayoutItem * existingItem = buttonSettings -> itemAt(i);
 
     if (!existingItem) {
-      qDebug() << "Not an item";
+      //qDebug() << "Not an item";
       continue;
     }
     QWidget * existingWidget = existingItem -> widget();
 
     if (!existingWidget) {
-      qDebug() << "Not a widget";
+      //qDebug() << "Not a widget";
       QSpacerItem * horizontalSpacer = new QSpacerItem(40, 20, QSizePolicy::Expanding, QSizePolicy::Minimum);
       buttonSettingsLayout -> addItem(horizontalSpacer);
-      qDebug() << "Not a widget";
     } else {
-      qDebug() << "Not a widget";
       QPushButton * pushButton = dynamic_cast < QPushButton * > (existingWidget);
       QPushButton * newWidget = new QPushButton();
       newWidget -> setText(pushButton -> text());
@@ -125,8 +137,8 @@ void MainWindow::onAddWidgets() {
   QGridLayout * videoOptions = dynamic_cast < QGridLayout * > (existingLayout -> itemAtPosition(0, 1));
   QGridLayout * videoOptionsGridLayout = new QGridLayout();
 
-  //    qDebug()<<videoOptions->rowCount();
-  //    qDebug()<<videoOptions->columnCount();
+  //qDebug()<<videoOptions->rowCount();
+  //qDebug()<<videoOptions->columnCount();
 
   for (int row = 0; row < videoOptions -> rowCount(); row++) {
     for (int column = 0; column < videoOptions -> columnCount(); column++) {
@@ -135,31 +147,26 @@ void MainWindow::onAddWidgets() {
       }
 
       QLayoutItem * existingItem = videoOptions -> itemAtPosition(row, column);
-      //            newLayout->setRowStretch(row, existingLayout->rowStretch(row));
-      //            newLayout->setColumnStretch(column, existingLayout->columnStretch(column));
-      //            newLayout->setColumnMinimumWidth(column, existingLayout->columnMinimumWidth(column));
-      //            newLayout->setRowMinimumHeight(row, existingLayout->rowMinimumHeight(row));
+      //newLayout->setRowStretch(row, existingLayout->rowStretch(row));
+      //newLayout->setColumnStretch(column, existingLayout->columnStretch(column));
+      //newLayout->setColumnMinimumWidth(column, existingLayout->columnMinimumWidth(column));
+      //newLayout->setRowMinimumHeight(row, existingLayout->rowMinimumHeight(row));
 
       if (!existingItem) {
-        //                qDebug()<<row;
-        //                qDebug()<<column;
         //qDebug()<<"Not an item";
         //qDebug()<<existingLayout->itemAtPosition(row, column);
         continue;
       }
 
       QWidget * existingWidget = existingItem -> widget();
-      //QSlider *slider = dynamic_cast<QSlider*>(existingWidget);
-      //QLineEdit *lineEdit = dynamic_cast<QLineEdit*>(existingWidget);
 
       if (!existingWidget) {
-        //                qDebug()<<row;
-        //                qDebug()<<column;
-        // qDebug()<<"Not a widget";
+        //qDebug()<<"Not a widget";
         //qDebug()<<existingItem->widget();
         continue;
       }
-      //Check if doing seperate q widgets help!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+      /*NOTE: Created a brand new instance of whatever type of widget was in layout
+        to prevent removing widget from existing layout */
       else if (QLabel * label = qobject_cast < QLabel * > (existingWidget)) {
         QLabel * newWidget = new QLabel();
         newWidget -> setText(label -> text());
@@ -167,13 +174,12 @@ void MainWindow::onAddWidgets() {
 
         videoOptionsGridLayout -> addWidget(newWidget, row, column, 1, 1, Qt::Alignment());
 
-      } else if (QSlider * slider = qobject_cast < QSlider * > (existingWidget)) {
-        qDebug() << existingItem -> widget();
+      } else if (qobject_cast < QSlider * > (existingWidget)) {
         QSlider * newWidget = new QSlider(Qt::Horizontal, nullptr);
         addProperties(newWidget, existingWidget);
 
         videoOptionsGridLayout -> addWidget(newWidget, row, column, 1, 2, Qt::Alignment());
-      } else if (QLineEdit * lineEdit = dynamic_cast < QLineEdit * > (existingWidget)) {
+      } else if (dynamic_cast < QLineEdit * > (existingWidget)) {
         QLineEdit * newWidget = new QLineEdit();
         addProperties(newWidget, existingWidget);
 
@@ -188,12 +194,11 @@ void MainWindow::onAddWidgets() {
 
     }
   }
+
   newLayout -> addLayout(videoOptionsGridLayout, 0, 2);
 
-
   newGroupBox -> setLayout(newLayout);
-  //existingGroupBox->setLayout(newLayout);
 
-  layout -> insertWidget(1, newGroupBox);
+  layout -> insertWidget(totalVideos-1, newGroupBox);
 
 }

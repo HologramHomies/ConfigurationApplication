@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>787</width>
-    <height>525</height>
+    <width>817</width>
+    <height>559</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -25,8 +25,8 @@
         <rect>
          <x>0</x>
          <y>0</y>
-         <width>767</width>
-         <height>398</height>
+         <width>805</width>
+         <height>392</height>
         </rect>
        </property>
        <layout class="QVBoxLayout" name="verticalLayout">
@@ -54,7 +54,7 @@
           </property>
           <layout class="QGridLayout" name="gridLayout_2">
            <item row="0" column="0">
-            <widget class="QLabel" name="label_2">
+            <widget class="QLabel" name="videoPlayer_label">
              <property name="sizePolicy">
               <sizepolicy hsizetype="MinimumExpanding" vsizetype="Expanding">
                <horstretch>0</horstretch>
@@ -79,16 +79,16 @@
             </widget>
            </item>
            <item row="1" column="0">
-            <widget class="QPushButton" name="pushButton_3">
+            <widget class="QPushButton" name="largePreview_pushButton">
              <property name="text">
               <string>Large Preview</string>
              </property>
             </widget>
            </item>
            <item row="1" column="1">
-            <layout class="QHBoxLayout" name="horizontalLayout">
+            <layout class="QHBoxLayout" name="videoButtonOptions_HLayout">
              <item>
-              <spacer name="horizontalSpacer">
+              <spacer name="hSpacer">
                <property name="orientation">
                 <enum>Qt::Horizontal</enum>
                </property>
@@ -101,14 +101,42 @@
               </spacer>
              </item>
              <item>
-              <widget class="QPushButton" name="pushButton_2">
+              <widget class="QPushButton" name="removeButton_pushButton">
+               <property name="enabled">
+                <bool>false</bool>
+               </property>
+               <property name="sizePolicy">
+                <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
+                 <horstretch>0</horstretch>
+                 <verstretch>0</verstretch>
+                </sizepolicy>
+               </property>
+               <property name="text">
+                <string>Remove Button</string>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QPushButton" name="resetSettings_pushButton">
+               <property name="sizePolicy">
+                <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
+                 <horstretch>0</horstretch>
+                 <verstretch>0</verstretch>
+                </sizepolicy>
+               </property>
                <property name="text">
                 <string>Reset Settings</string>
                </property>
               </widget>
              </item>
              <item>
-              <widget class="QPushButton" name="pushButton">
+              <widget class="QPushButton" name="applySettings_pushButton">
+               <property name="sizePolicy">
+                <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
+                 <horstretch>0</horstretch>
+                 <verstretch>0</verstretch>
+                </sizepolicy>
+               </property>
                <property name="text">
                 <string>Apply Settings</string>
                </property>
@@ -117,61 +145,61 @@
             </layout>
            </item>
            <item row="0" column="1">
-            <layout class="QGridLayout" name="gridLayout">
+            <layout class="QGridLayout" name="videoSettings_gridLayout">
              <item row="2" column="0">
-              <widget class="QLabel" name="label_4">
+              <widget class="QLabel" name="trim_Label">
                <property name="text">
                 <string>Trim</string>
                </property>
               </widget>
              </item>
              <item row="3" column="0">
-              <widget class="QLabel" name="label_5">
+              <widget class="QLabel" name="videoPath_Label">
                <property name="text">
                 <string>Path</string>
                </property>
               </widget>
              </item>
              <item row="3" column="1">
-              <widget class="QLineEdit" name="lineEdit"/>
+              <widget class="QLineEdit" name="videoPath_lineEdit"/>
              </item>
              <item row="1" column="0">
-              <widget class="QLabel" name="label_3">
+              <widget class="QLabel" name="constrast_Label">
                <property name="text">
                 <string>Contrast</string>
                </property>
               </widget>
              </item>
              <item row="0" column="0">
-              <widget class="QLabel" name="label">
+              <widget class="QLabel" name="brightness_label">
                <property name="text">
                 <string>Brightness</string>
                </property>
               </widget>
              </item>
              <item row="3" column="2">
-              <widget class="QPushButton" name="pushButton_4">
+              <widget class="QPushButton" name="openVideo_pushVideo">
                <property name="text">
                 <string>Open Video</string>
                </property>
               </widget>
              </item>
              <item row="2" column="1" colspan="2">
-              <widget class="QSlider" name="horizontalSlider_3">
+              <widget class="QSlider" name="trim_Slider">
                <property name="orientation">
                 <enum>Qt::Horizontal</enum>
                </property>
               </widget>
              </item>
              <item row="1" column="1" colspan="2">
-              <widget class="QSlider" name="horizontalSlider_2">
+              <widget class="QSlider" name="contrast_Slider">
                <property name="orientation">
                 <enum>Qt::Horizontal</enum>
                </property>
               </widget>
              </item>
              <item row="0" column="1" colspan="2">
-              <widget class="QSlider" name="horizontalSlider">
+              <widget class="QSlider" name="brightness_Slider">
                <property name="value">
                 <number>50</number>
                </property>
@@ -211,7 +239,7 @@
        </spacer>
       </item>
       <item>
-       <widget class="QPushButton" name="addBut_Button">
+       <widget class="QPushButton" name="addButton_pushButton">
         <property name="text">
          <string>Add Button</string>
         </property>
@@ -235,14 +263,14 @@
        </spacer>
       </item>
       <item>
-       <widget class="QPushButton" name="pushButton_6">
+       <widget class="QPushButton" name="hologramPreview_pushButton">
         <property name="text">
          <string>Hologram Preview</string>
         </property>
        </widget>
       </item>
       <item>
-       <widget class="QPushButton" name="pushButton_5">
+       <widget class="QPushButton" name="export_pushButton">
         <property name="text">
          <string>Export</string>
         </property>
@@ -257,8 +285,8 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>787</width>
-     <height>21</height>
+     <width>817</width>
+     <height>25</height>
     </rect>
    </property>
    <widget class="QMenu" name="menuFile">
