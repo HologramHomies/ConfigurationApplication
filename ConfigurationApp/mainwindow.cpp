@@ -5,6 +5,20 @@
 
 int totalVideos =1;
 
+//NOTE: This will always be updated when the apply settings button is pressed
+class videoSettings{
+public:
+    int brightnessValue;
+    int constrastValue;
+    double fromTrim;
+    double toTrim;
+    QString path;
+};
+
+
+
+
+
 
 MainWindow::MainWindow(QWidget * parent): QMainWindow(parent), ui(new Ui::MainWindow) {
   ui -> setupUi(this);
@@ -13,10 +27,25 @@ MainWindow::MainWindow(QWidget * parent): QMainWindow(parent), ui(new Ui::MainWi
     ui -> addButton_pushButton, & QPushButton::clicked,
     this, & MainWindow::onAddWidgets
   );
+
+  QObject::connect(
+    ui -> removeButton_pushButton, & QPushButton::clicked,
+    this, & MainWindow::removeButton
+  );
 }
 
 MainWindow::~MainWindow() {
   delete ui;
+}
+
+void MainWindow::removeButton(){
+    qDebug() << "Woah this works";
+    totalVideos--;
+    qDebug() << sender();
+    qDebug() << sender()->parent();
+
+    delete dynamic_cast < QGroupBox * > (sender()->parent());
+
 }
 
 void MainWindow::addProperties(QWidget * newWidget, QWidget * existingWidget) {
@@ -68,8 +97,8 @@ void MainWindow::onAddWidgets() {
   newGroupBox -> setTitle("Button #"+QString::number(totalVideos));
   newGroupBox -> setContentsMargins(existingGroupBox -> contentsMargins());
   newGroupBox -> setAlignment(existingGroupBox -> alignment());
-  //newGroupBox->setCheckable(existingGroupBox->isCheckable());
-  //newGroupBox->setChecked(existingGroupBox->isChecked());
+  newGroupBox->setCheckable(existingGroupBox->isCheckable());
+  newGroupBox->setChecked(existingGroupBox->isChecked());
   newGroupBox -> setFlat(existingGroupBox -> isFlat());
   //newGroupBox->setEnabled(existingGroupBox->isEnabled());
   //newGroupBox->setLayout(existingGroupBox->layout());
@@ -124,6 +153,13 @@ void MainWindow::onAddWidgets() {
     } else {
       QPushButton * pushButton = dynamic_cast < QPushButton * > (existingWidget);
       QPushButton * newWidget = new QPushButton();
+      if(pushButton->text()=="Remove Button"){
+          QObject::connect(
+            newWidget, & QPushButton::clicked,
+            this, & MainWindow::removeButton
+          );
+      }
+
       newWidget -> setText(pushButton -> text());
       addProperties(newWidget, existingWidget);
 

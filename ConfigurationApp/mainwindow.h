@@ -21,6 +21,7 @@ public:
     //Felipe Functions
     void onAddWidgets();
     void addProperties(QWidget * newWidget, QWidget * existingWidget);
+    void removeButton();
 
 
 private slots:
