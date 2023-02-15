@@ -2,6 +2,8 @@
 #define MAINWINDOW_H
 
 #include <QMainWindow>
+#include <QFileDialog>
+#include <QDebug>
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
@@ -14,6 +16,15 @@ class MainWindow : public QMainWindow
 public:
     MainWindow(QWidget *parent = nullptr);
     ~MainWindow();
+
+
+    //Felipe Functions
+    void onAddWidgets();
+    void addProperties(QWidget * newWidget, QWidget * existingWidget);
+    void removeButton();
+
+
+private slots:
 
 private:
     Ui::MainWindow *ui;
