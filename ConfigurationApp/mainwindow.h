@@ -22,6 +22,7 @@ public:
     void onAddWidgets();
     void addProperties(QWidget * newWidget, QWidget * existingWidget);
     void removeButton();
+    void addVideo();
 
 
 private slots:

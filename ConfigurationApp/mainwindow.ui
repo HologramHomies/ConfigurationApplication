@@ -25,8 +25,8 @@
         <rect>
          <x>0</x>
          <y>0</y>
-         <width>805</width>
-         <height>392</height>
+         <width>797</width>
+         <height>432</height>
         </rect>
        </property>
        <layout class="QVBoxLayout" name="verticalLayout">
@@ -182,7 +182,7 @@
               </widget>
              </item>
              <item row="3" column="2">
-              <widget class="QPushButton" name="openVideo_pushVideo">
+              <widget class="QPushButton" name="openVideo_pushButton">
                <property name="text">
                 <string>Open Video</string>
                </property>
@@ -290,7 +290,7 @@
      <x>0</x>
      <y>0</y>
      <width>817</width>
-     <height>25</height>
+     <height>21</height>
     </rect>
    </property>
    <widget class="QMenu" name="menuFile">

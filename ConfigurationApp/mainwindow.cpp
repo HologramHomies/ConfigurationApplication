@@ -1,19 +1,25 @@
 #include "mainwindow.h"
 
+
+#include "qaudiooutput.h"
 #include "ui_mainwindow.h"
+
+#include <QMediaPlayer>
+#include <QVideoWidget>
+#include <QGraphicsEffect>
 
 
 int totalVideos =1;
 
 //NOTE: This will always be updated when the apply settings button is pressed
-class videoSettings{
-public:
-    int brightnessValue;
-    int constrastValue;
-    double fromTrim;
-    double toTrim;
-    QString path;
-};
+//class videoSettings{
+//public:
+//    int brightnessValue;
+//    int constrastValue;
+//    double fromTrim;
+//    double toTrim;
+//    QString path;
+//};
 
 
 
@@ -32,11 +38,79 @@ MainWindow::MainWindow(QWidget * parent): QMainWindow(parent), ui(new Ui::MainWi
     ui -> removeButton_pushButton, & QPushButton::clicked,
     this, & MainWindow::removeButton
   );
+
+  QObject::connect(
+    ui -> openVideo_pushButton, & QPushButton::clicked,
+    this, & MainWindow::addVideo
+  );
 }
 
 MainWindow::~MainWindow() {
   delete ui;
 }
+
+
+void MainWindow::addVideo(){
+    /*TODO
+     * VERY IMPORTANT
+     * Properly remove any previously added video from the group box
+     * Reset all controls and audio (create a function for this)
+     * Add progress bar and pause buttion for video(Maybe even remove large preview?)
+     *
+     * NOT SO IMPORTANT
+     * Add a volume slider(Not to be saved but for user convinience)
+     *
+     * NOTE: Progress bar is currently being tested with the brightness slider.
+     *
+     *
+     *
+     *
+     */
+
+    QPushButton* button = qobject_cast<QPushButton*>(sender());
+    QGridLayout * existingLayout = dynamic_cast < QGridLayout * > (button -> parentWidget() -> layout());
+//    if(existingLayout -> itemAtPosition(0, 0)){
+//        existingLayout ->removeItem(existingLayout -> itemAtPosition(0, 0));
+//    }
+
+
+    //QUrl homePath = QUrl("\Videos");
+    QUrl videoPath = QFileDialog::getOpenFileUrl(
+                this,
+                tr("Select Video"),
+                QString("C:/"),
+                tr("Video Files (*.mp4 *.avi *.mov *.wmv)")
+                );
+    ui->videoPath_lineEdit->setText(videoPath.toString());
+    QMediaPlayer *player = new QMediaPlayer;
+    QAudioOutput *audioOutput = new QAudioOutput;
+    audioOutput ->setVolume(.25);
+    player->setAudioOutput(audioOutput);
+
+    //QMediaPlayer *player = new QMediaPlayer;
+    QVideoWidget *vw = new QVideoWidget;
+    player -> setSource(videoPath);
+//    player -> setPosition(Q_INT64_C(15000));
+//    QGraphicsColorizeEffect *colorEffect = new QGraphicsColorizeEffect();
+//    colorEffect->setColor(QColor(0, 100, 100));
+//    colorEffect->setStrength(0.1);
+//    vw ->setGraphicsEffect(colorEffect);
+    player ->setVideoOutput(vw);
+
+
+    existingLayout -> addWidget(vw, 0, 0);
+
+    vw -> show();
+
+    player ->play();
+    connect(player,&QMediaPlayer::durationChanged,ui->brightness_Slider,&QSlider::setMaximum);
+    connect(player,&QMediaPlayer::positionChanged,ui->brightness_Slider,&QSlider::setValue);
+    connect(ui->brightness_Slider,&QSlider::sliderMoved,player,&QMediaPlayer::setPosition);
+
+    qDebug() << player->mediaStatus();
+
+}
+
 
 void MainWindow::removeButton(){
     qDebug() << "Woah this works";
