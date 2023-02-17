@@ -69,10 +69,18 @@ void MainWindow::addVideo(){
 
     QPushButton* button = qobject_cast<QPushButton*>(sender());
     QGridLayout * existingLayout = dynamic_cast < QGridLayout * > (button -> parentWidget() -> layout());
-//    if(existingLayout -> itemAtPosition(0, 0)){
-//        existingLayout ->removeItem(existingLayout -> itemAtPosition(0, 0));
-//    }
+    QVideoWidget *vw = new QVideoWidget;
+    qDebug()<<existingLayout -> itemAtPosition(0, 0);
+    qDebug()<<existingLayout -> itemAtPosition(0, 0)->widget();
 
+
+    if(dynamic_cast < QLabel * > (existingLayout -> itemAtPosition(0, 0)->widget())){
+            qDebug()<<"Check";
+            vw->setSizePolicy(existingLayout -> itemAtPosition(0, 0)->widget()->sizePolicy());
+            vw->setMinimumSize(existingLayout -> itemAtPosition(0, 0)->widget()->minimumSize());
+            delete dynamic_cast < QLabel * > (existingLayout -> itemAtPosition(0, 0)->widget());
+        //existingLayout ->removeWidget(existingLayout -> itemAtPosition(0, 0)->widget());
+    }
 
     //QUrl homePath = QUrl("\Videos");
     QUrl videoPath = QFileDialog::getOpenFileUrl(
@@ -85,11 +93,10 @@ void MainWindow::addVideo(){
     QMediaPlayer *player = new QMediaPlayer;
     QAudioOutput *audioOutput = new QAudioOutput;
     audioOutput ->setVolume(.25);
-    player->setAudioOutput(audioOutput);
-
+    //player->set(audioOutput);
+     qDebug() << videoPath;
     //QMediaPlayer *player = new QMediaPlayer;
-    QVideoWidget *vw = new QVideoWidget;
-    player -> setSource(videoPath);
+    player -> setMedia(videoPath);
 //    player -> setPosition(Q_INT64_C(15000));
 //    QGraphicsColorizeEffect *colorEffect = new QGraphicsColorizeEffect();
 //    colorEffect->setColor(QColor(0, 100, 100));
@@ -97,26 +104,27 @@ void MainWindow::addVideo(){
 //    vw ->setGraphicsEffect(colorEffect);
     player ->setVideoOutput(vw);
 
-
     existingLayout -> addWidget(vw, 0, 0);
 
     vw -> show();
+    qDebug() << player->mediaStatus();
 
     player ->play();
-    connect(player,&QMediaPlayer::durationChanged,ui->brightness_Slider,&QSlider::setMaximum);
-    connect(player,&QMediaPlayer::positionChanged,ui->brightness_Slider,&QSlider::setValue);
-    connect(ui->brightness_Slider,&QSlider::sliderMoved,player,&QMediaPlayer::setPosition);
+    //connect(player,&QVideoWidget::brightnessChanged,ui->brightness_Slider,&QSlider::setMaximum);
+    //connect(vw,&QVideoWidget::brightnessChanged,ui->brightness_Slider,&QSlider::setValue);
+    ui->brightness_Slider->setRange(-100,100);
+    connect(ui->brightness_Slider,&QSlider::valueChanged,vw,&QVideoWidget::setBrightness);
 
     qDebug() << player->mediaStatus();
+     qDebug() << vw->brightness();
 
 }
 
-
 void MainWindow::removeButton(){
-    qDebug() << "Woah this works";
+    //qDebug() << "Woah this works";
     totalVideos--;
-    qDebug() << sender();
-    qDebug() << sender()->parent();
+    //qDebug() << sender();
+    //qDebug() << sender()->parent();
 
     delete dynamic_cast < QGroupBox * > (sender()->parent());
 
