@@ -9,13 +9,25 @@ CONFIG += c++17
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 SOURCES += \
+    button.cpp \
+    button_groupbox.cpp \
+    config.cpp \
+    configwindow.cpp \
     main.cpp \
-    mainwindow.cpp
+    mainwindow.cpp \
+    video.cpp
 
 HEADERS += \
-    mainwindow.h
+    button.h \
+    button_groupbox.h \
+    config.h \
+    configwindow.h \
+    mainwindow.h \
+    video.h
 
 FORMS += \
+    button_groupbox.ui \
+    configwindow.ui \
     mainwindow.ui
 
 # Default rules for deployment.
