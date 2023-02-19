@@ -2,6 +2,7 @@
 #define CONFIGWINDOW_H
 
 #include <QMainWindow>
+#include <QBoxLayout>
 #include "button_groupbox.h"
 #include "config.h"
 
@@ -25,6 +26,8 @@ private:
     QList<Button_GroupBox*> button_GroupBoxes; // the GUI group box
     Config config;
     int number_of_buttons = 0;
+    QWidget *widget = new QWidget();
+    QVBoxLayout *scroll_layout = new QVBoxLayout(this->widget);
 };
 
 #endif // CONFIGWINDOW_H
