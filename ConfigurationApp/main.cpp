@@ -6,6 +6,17 @@
 
 #include <QVideoWidget>
 
+//NOTE: This will always be updated when the apply settings button is pressed
+class videoSettings{
+public:
+    int brightnessValue;
+    int constrastValue;
+    double fromTrim;
+    double toTrim;
+    QString path;
+    QMediaPlayer *player;
+};
+
 
 
 int main(int argc, char *argv[])

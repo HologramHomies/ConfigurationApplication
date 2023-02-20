@@ -1,33 +1,24 @@
 #include "mainwindow.h"
+#include "videowidget.h"
 
 
-#include "qaudiooutput.h"
 #include "ui_mainwindow.h"
+
 
 #include <QMediaPlayer>
 #include <QVideoWidget>
 #include <QGraphicsEffect>
+#include <QMouseEvent>
 
 
 int totalVideos =1;
-
-//NOTE: This will always be updated when the apply settings button is pressed
-//class videoSettings{
-//public:
-//    int brightnessValue;
-//    int constrastValue;
-//    double fromTrim;
-//    double toTrim;
-//    QString path;
-//};
-
-
-
+QMediaPlayer *player = new QMediaPlayer;
 
 
 
 MainWindow::MainWindow(QWidget * parent): QMainWindow(parent), ui(new Ui::MainWindow) {
   ui -> setupUi(this);
+
 
   QObject::connect(
     ui -> addButton_pushButton, & QPushButton::clicked,
@@ -50,81 +41,98 @@ MainWindow::~MainWindow() {
 }
 
 
+
+
+
 void MainWindow::addVideo(){
     /*TODO
      * VERY IMPORTANT
-     * Properly remove any previously added video from the group box
+     * (FIXED)Properly remove any previously added video from the group box
+     * Save the MediaPlayer (Object responsible for playing video files) to a data structure
      * Reset all controls and audio (create a function for this)
-     * Add progress bar and pause buttion for video(Maybe even remove large preview?)
+     * Make onClick for videoWidget(Video display) able to pause the video
+     * Double clicking the videoWidget(Video Display) will make video fullscreen
+     *
      *
      * NOT SO IMPORTANT
      * Add a volume slider(Not to be saved but for user convinience)
      *
-     * NOTE: Progress bar is currently being tested with the brightness slider.
-     *
-     *
+     * NOTE: Large Preview button was removed and replaced with a seeker slider
      *
      *
      */
 
     QPushButton* button = qobject_cast<QPushButton*>(sender());
     QGridLayout * existingLayout = dynamic_cast < QGridLayout * > (button -> parentWidget() -> layout());
-    QVideoWidget *vw = new QVideoWidget;
-    qDebug()<<existingLayout -> itemAtPosition(0, 0);
-    qDebug()<<existingLayout -> itemAtPosition(0, 0)->widget();
 
+//    qDebug()<<existingLayout -> itemAtPosition(0, 0);
+//    qDebug()<<existingLayout -> itemAtPosition(0, 0)->widget();
 
-    if(dynamic_cast < QLabel * > (existingLayout -> itemAtPosition(0, 0)->widget())){
-            qDebug()<<"Check";
-            vw->setSizePolicy(existingLayout -> itemAtPosition(0, 0)->widget()->sizePolicy());
-            vw->setMinimumSize(existingLayout -> itemAtPosition(0, 0)->widget()->minimumSize());
-            delete dynamic_cast < QLabel * > (existingLayout -> itemAtPosition(0, 0)->widget());
-        //existingLayout ->removeWidget(existingLayout -> itemAtPosition(0, 0)->widget());
-    }
-
-    //QUrl homePath = QUrl("\Videos");
     QUrl videoPath = QFileDialog::getOpenFileUrl(
                 this,
                 tr("Select Video"),
                 QString("C:/"),
                 tr("Video Files (*.mp4 *.avi *.mov *.wmv)")
                 );
+    if(videoPath==QUrl("")){
+        return;
+    }
+    QVideoWidget *vw = new QVideoWidget;
+    //player = new QMediaPlayer;
+
+    if(dynamic_cast < QLabel * > (existingLayout -> itemAtPosition(0, 1)->widget())){
+            vw->setSizePolicy(existingLayout -> itemAtPosition(0, 1)->widget()->sizePolicy());
+            vw->setMinimumSize(existingLayout -> itemAtPosition(0, 1)->widget()->minimumSize());
+            delete dynamic_cast < QWidget * > (existingLayout -> itemAtPosition(0, 1)->widget());
+
+        //existingLayout ->removeWidget(existingLayout -> itemAtPosition(0, 0)->widget());
+    }else{
+        vw = dynamic_cast < QVideoWidget * > (existingLayout -> itemAtPosition(0, 1)->widget());
+        //player = vw->mediaObject->service();
+    }
+
+    vw->setMouseTracking(true);
+    //connect(vw, &QVideoWidget::mouseDoubleClickEvent, this, &MainWindow::toggleFullScreen);
+    //QObject::connect(vw, &QVideoWidget::mousePressEvent, player, &QMediaPlayer::pause);
+
+
+
+
+    //QUrl homePath = QUrl("\Videos");
+
     ui->videoPath_lineEdit->setText(videoPath.toString());
-    QMediaPlayer *player = new QMediaPlayer;
-    QAudioOutput *audioOutput = new QAudioOutput;
-    audioOutput ->setVolume(.25);
+
+//    QAudioOutput *audioOutput = new QAudioOutput;
+//    audioOutput ->setVolume(.25);
     //player->set(audioOutput);
-     qDebug() << videoPath;
+     //qDebug() << vw->children();
     //QMediaPlayer *player = new QMediaPlayer;
+    player -> setVolume(10);
     player -> setMedia(videoPath);
-//    player -> setPosition(Q_INT64_C(15000));
-//    QGraphicsColorizeEffect *colorEffect = new QGraphicsColorizeEffect();
-//    colorEffect->setColor(QColor(0, 100, 100));
-//    colorEffect->setStrength(0.1);
-//    vw ->setGraphicsEffect(colorEffect);
     player ->setVideoOutput(vw);
 
-    existingLayout -> addWidget(vw, 0, 0);
+    existingLayout -> addWidget(vw, 0, 1);
 
     vw -> show();
     qDebug() << player->mediaStatus();
 
     player ->play();
-    //connect(player,&QVideoWidget::brightnessChanged,ui->brightness_Slider,&QSlider::setMaximum);
-    //connect(vw,&QVideoWidget::brightnessChanged,ui->brightness_Slider,&QSlider::setValue);
+    connect(player,&QMediaPlayer::durationChanged,ui->seeker_Slider,&QSlider::setMaximum);
+    connect(player,&QMediaPlayer::positionChanged,ui->seeker_Slider,&QSlider::setValue);
+    connect(ui->seeker_Slider,&QSlider::sliderMoved,player,&QMediaPlayer::setPosition);
     ui->brightness_Slider->setRange(-100,100);
+    ui->contrast_Slider->setRange(-100,100);
+    ui->contrast_Slider->setSliderPosition(0);
+    ui->brightness_Slider->setSliderPosition(0);
     connect(ui->brightness_Slider,&QSlider::valueChanged,vw,&QVideoWidget::setBrightness);
+    connect(ui->contrast_Slider,&QSlider::valueChanged,vw,&QVideoWidget::setContrast);
 
-    qDebug() << player->mediaStatus();
-     qDebug() << vw->brightness();
+
 
 }
 
 void MainWindow::removeButton(){
-    //qDebug() << "Woah this works";
     totalVideos--;
-    //qDebug() << sender();
-    //qDebug() << sender()->parent();
 
     delete dynamic_cast < QGroupBox * > (sender()->parent());
 
@@ -139,6 +147,7 @@ void MainWindow::addProperties(QWidget * newWidget, QWidget * existingWidget) {
   newWidget -> setStyleSheet(existingWidget -> styleSheet());
   newWidget -> setSizePolicy(existingWidget -> sizePolicy());
   newWidget -> setContentsMargins(existingWidget -> contentsMargins());
+  newWidget -> setStyleSheet(existingWidget -> styleSheet());
 }
 
 void MainWindow::onAddWidgets() {
@@ -192,29 +201,30 @@ void MainWindow::onAddWidgets() {
 
   /*The following will grab the standalone widgets from the original
     group box and add them to the new groupbox*/
-  QLayoutItem * videoLabel = existingLayout -> itemAtPosition(0, 0);
-  QLayoutItem * largePrevButton = existingLayout -> itemAtPosition(1, 0);
+  QLayoutItem * videoDisplay = existingLayout -> itemAtPosition(0, 1);
+  QLayoutItem * seeker = existingLayout -> itemAtPosition(2, 1);
 
-  QWidget * existingLabelWidget = videoLabel -> widget();
-  QWidget * existingPrevButton = largePrevButton -> widget();
+  QWidget * existingLabelWidget = videoDisplay -> widget();
+  QWidget * existingSlider = seeker -> widget();
 
-  QLabel * label = qobject_cast < QLabel * > (existingLabelWidget);
-  QPushButton * pushButton = dynamic_cast < QPushButton * > (existingPrevButton);
+
+//  QVideoWidget * videoWidget = qobject_cast < QVideoWidget * > (existingLabelWidget);
+//  QSlider * seekSlider = dynamic_cast < QSlider * > (existingSlider);
 
   QLabel * vidLabel = new QLabel();
-  QPushButton * prevBut = new QPushButton();
+  QSlider * seek = new QSlider(Qt::Horizontal,this);
 
-  vidLabel -> setText(label -> text());
-  prevBut -> setText(pushButton -> text());
-  vidLabel -> setAlignment(label -> alignment());
+  //vidLabel -> setText(label -> text());
+  //prevBut -> setText(pushButton -> text());
+  //vidLabel -> setAlignment(label -> alignment());
 
   addProperties(vidLabel, existingLabelWidget);
-  addProperties(prevBut, existingPrevButton);
+  addProperties(seek, existingSlider);
 
   newLayout -> addWidget(vidLabel, 0, 1);
-  newLayout -> addWidget(prevBut, 2, 1);
+  newLayout -> addWidget(seek, 2, 1);
 
-  QHBoxLayout * buttonSettings = dynamic_cast < QHBoxLayout * > (existingLayout -> itemAtPosition(1, 1));
+  QHBoxLayout * buttonSettings = dynamic_cast < QHBoxLayout * > (existingLayout -> itemAtPosition(2, 2));
   QHBoxLayout * buttonSettingsLayout = new QHBoxLayout();
 
   /*This for loop will iterate through all the widgets in the HLayout that is
@@ -252,7 +262,7 @@ void MainWindow::onAddWidgets() {
   newLayout -> addLayout(buttonSettingsLayout, 2, 2);
 
   //This item will contain the grid layout for the video options
-  QGridLayout * videoOptions = dynamic_cast < QGridLayout * > (existingLayout -> itemAtPosition(0, 1));
+  QGridLayout * videoOptions = dynamic_cast < QGridLayout * > (existingLayout -> itemAtPosition(0, 2));
   QGridLayout * videoOptionsGridLayout = new QGridLayout();
 
   //qDebug()<<videoOptions->rowCount();
@@ -320,3 +330,5 @@ void MainWindow::onAddWidgets() {
   layout -> insertWidget(totalVideos-1, newGroupBox);
 
 }
+
+

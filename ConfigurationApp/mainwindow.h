@@ -1,6 +1,7 @@
 #ifndef MAINWINDOW_H
 #define MAINWINDOW_H
 
+#include "qvideowidget.h"
 #include <QMainWindow>
 #include <QFileDialog>
 #include <QDebug>
@@ -20,6 +21,7 @@ public:
 
     //Felipe Functions
     void onAddWidgets();
+    //void showFullScreen(QVideoWidget *videoWidget);
     void addProperties(QWidget * newWidget, QWidget * existingWidget);
     void removeButton();
     void addVideo();
