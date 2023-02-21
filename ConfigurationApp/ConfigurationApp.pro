@@ -10,10 +10,14 @@ CONFIG += c++17
 
 SOURCES += \
     main.cpp \
-    mainwindow.cpp
+    mainwindow.cpp \
+    videodata.cpp \
+    videowidget.cpp
 
 HEADERS += \
-    mainwindow.h
+    mainwindow.h \
+    videodata.h \
+    videowidget.h
 
 FORMS += \
     mainwindow.ui
