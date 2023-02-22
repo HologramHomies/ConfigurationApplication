@@ -1,4 +1,4 @@
-QT       += core gui
+QT       += core gui multimedia multimediawidgets
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
@@ -15,7 +15,8 @@ SOURCES += \
     configwindow.cpp \
     main.cpp \
     mainwindow.cpp \
-    video.cpp
+    video.cpp \
+    videoplayer.cpp
 
 HEADERS += \
     button.h \
@@ -23,12 +24,14 @@ HEADERS += \
     config.h \
     configwindow.h \
     mainwindow.h \
-    video.h
+    video.h \
+    videoplayer.h
 
 FORMS += \
     button_groupbox.ui \
     configwindow.ui \
-    mainwindow.ui
+    mainwindow.ui \
+    videoplayer.ui
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin
