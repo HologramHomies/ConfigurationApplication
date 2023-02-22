@@ -1,6 +1,5 @@
 #include "mainwindow.h"
 
-
 #include "ui_mainwindow.h"
 
 
@@ -76,7 +75,7 @@ void MainWindow::addVideo(){
     if(videoPath==QUrl("")){
         return;
     }
-    QVideoWidget *vw = new QVideoWidget;
+    QVideoWidget *vw = new VideoWidget;
     //player = new QMediaPlayer;
 
     if(dynamic_cast < QLabel * > (existingLayout -> itemAtPosition(0, 1)->widget())){
@@ -86,7 +85,7 @@ void MainWindow::addVideo(){
 
         //existingLayout ->removeWidget(existingLayout -> itemAtPosition(0, 0)->widget());
     }else{
-        vw = dynamic_cast < QVideoWidget * > (existingLayout -> itemAtPosition(0, 1)->widget());
+        vw = dynamic_cast < VideoWidget * > (existingLayout -> itemAtPosition(0, 1)->widget());
         //player = vw->mediaObject->service();
     }
 
