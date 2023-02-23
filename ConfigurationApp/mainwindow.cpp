@@ -1,4 +1,5 @@
 #include "mainwindow.h"
+#include "videowidget.h"
 
 
 #include "ui_mainwindow.h"
