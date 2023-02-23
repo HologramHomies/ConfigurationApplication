@@ -1,7 +1,6 @@
 #include "mainwindow.h"
 #include "videowidget.h"
 
-
 #include "ui_mainwindow.h"
 
 
@@ -12,7 +11,7 @@
 
 
 int totalVideos =1;
-QMediaPlayer *player = new QMediaPlayer;
+QMediaPlayer *player;
 
 
 
@@ -77,8 +76,8 @@ void MainWindow::addVideo(){
     if(videoPath==QUrl("")){
         return;
     }
-    QVideoWidget *vw = new QVideoWidget;
-    //player = new QMediaPlayer;
+    QVideoWidget *vw = new VideoWidget;
+    player = new QMediaPlayer;
 
     if(dynamic_cast < QLabel * > (existingLayout -> itemAtPosition(0, 1)->widget())){
             vw->setSizePolicy(existingLayout -> itemAtPosition(0, 1)->widget()->sizePolicy());
@@ -87,7 +86,7 @@ void MainWindow::addVideo(){
 
         //existingLayout ->removeWidget(existingLayout -> itemAtPosition(0, 0)->widget());
     }else{
-        vw = dynamic_cast < QVideoWidget * > (existingLayout -> itemAtPosition(0, 1)->widget());
+        vw = dynamic_cast < VideoWidget * > (existingLayout -> itemAtPosition(0, 1)->widget());
         //player = vw->mediaObject->service();
     }
 
