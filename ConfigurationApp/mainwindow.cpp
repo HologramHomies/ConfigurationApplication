@@ -11,7 +11,7 @@
 
 
 int totalVideos =1;
-QMediaPlayer *player;
+QMediaPlayer *player= new QMediaPlayer;
 
 
 
@@ -77,7 +77,6 @@ void MainWindow::addVideo(){
         return;
     }
     QVideoWidget *vw = new VideoWidget;
-    player = new QMediaPlayer;
 
     if(dynamic_cast < QLabel * > (existingLayout -> itemAtPosition(0, 1)->widget())){
             vw->setSizePolicy(existingLayout -> itemAtPosition(0, 1)->widget()->sizePolicy());
