@@ -1,7 +1,7 @@
 #ifndef MAINWINDOW_H
 #define MAINWINDOW_H
 
-#include "qmediaplayer.h"
+#include "qvideowidget.h"
 #include <QMainWindow>
 #include <QFileDialog>
 #include <QDebug>
@@ -31,6 +31,5 @@ private slots:
 
 private:
     Ui::MainWindow *ui;
-    QMediaPlayer *player = nullptr;
 };
 #endif // MAINWINDOW_H
