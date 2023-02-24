@@ -1,6 +1,7 @@
 #include "button_groupbox.h"
 #include "ui_button_groupbox.h"
 #include "videoplayer.h"
+#include "configwindow.h"
 
 #include <QFileDialog>
 #include <QMediaPlayer>
@@ -32,10 +33,23 @@ void Button_GroupBox::on_openFile_pushButton_clicked()
         return;
     }
     ui->path_lineEdit->setText(video_path.toString());
-//    this->video_player->loadVideo(video_path);
+    this->video_player->loadVideo(video_path);
 }
 
 void Button_GroupBox::on_remove_pushButton_clicked(){
+    ConfigWindow *configWindow=dynamic_cast<ConfigWindow*>(sender()->parent()->parent()->parent()->parent()->parent()->parent());
+    configWindow->removeButtonAt(getID()-1);
     delete dynamic_cast < QGroupBox * > (sender()->parent());
+    configWindow->updateButtonTitles();
+}
+
+int Button_GroupBox::getID()
+{
+   return button_ID;
+}
+
+void Button_GroupBox::setID(int new_button_ID)
+{
+   button_ID = new_button_ID;
 }
 

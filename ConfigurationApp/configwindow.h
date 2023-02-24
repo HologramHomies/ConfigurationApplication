@@ -17,6 +17,8 @@ class ConfigWindow : public QMainWindow
 public:
     explicit ConfigWindow(QWidget *parent = nullptr);
     ~ConfigWindow();
+     void removeButtonAt(int button_ID);
+     void updateButtonTitles();
 
 private slots:
     void on_add_pushButton_clicked();

@@ -15,6 +15,8 @@ class Button_GroupBox : public QGroupBox
 public:
     explicit Button_GroupBox(QWidget *parent = nullptr);
     ~Button_GroupBox();
+    int getID();
+    void setID(int new_ID);
 
 private slots:
     void on_openFile_pushButton_clicked();
@@ -24,6 +26,7 @@ private slots:
 private:
     Ui::Button_GroupBox *ui;
     VideoPlayer *video_player = new VideoPlayer();
+    int button_ID;
 };
 
 #endif // BUTTON_GROUPBOX_H
