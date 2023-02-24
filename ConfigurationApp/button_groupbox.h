@@ -18,6 +18,8 @@ public:
 
 private slots:
     void on_openFile_pushButton_clicked();
+    void on_remove_pushButton_clicked();
+
 
 private:
     Ui::Button_GroupBox *ui;

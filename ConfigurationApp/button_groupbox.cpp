@@ -32,6 +32,10 @@ void Button_GroupBox::on_openFile_pushButton_clicked()
         return;
     }
     ui->path_lineEdit->setText(video_path.toString());
-    this->video_player->loadVideo(video_path);
+//    this->video_player->loadVideo(video_path);
+}
+
+void Button_GroupBox::on_remove_pushButton_clicked(){
+    delete dynamic_cast < QGroupBox * > (sender()->parent());
 }
 
