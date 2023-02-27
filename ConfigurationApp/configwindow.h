@@ -28,6 +28,7 @@ private:
     QList<Button_GroupBox*> button_GroupBoxes; // the GUI group box
     Config *config = new Config();
     int number_of_buttons = 0;
+
     QWidget *widget = new QWidget();
     QVBoxLayout *scroll_layout = new QVBoxLayout(this->widget);
 

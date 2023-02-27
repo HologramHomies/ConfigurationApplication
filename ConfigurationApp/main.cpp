@@ -1,5 +1,4 @@
 #include "configwindow.h"
-#include "mainwindow.h"
 
 #include <QApplication>
 

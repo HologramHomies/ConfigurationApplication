@@ -28,8 +28,8 @@ void ConfigWindow::on_add_pushButton_clicked()
     group_box->setTitle("Button #"+QString::number(this->number_of_buttons));
 
     this->scroll_layout->addWidget(group_box);
-    //this->widget->setLayout(this->scroll_layout);
     ui->scrollArea->setWidget(this->widget);
+
 }
 
 void ConfigWindow::removeButtonAt(int button_ID)
