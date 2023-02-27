@@ -14,7 +14,6 @@ SOURCES += \
     config.cpp \
     configwindow.cpp \
     main.cpp \
-    mainwindow.cpp \
     video.cpp
 
 HEADERS += \
@@ -22,13 +21,11 @@ HEADERS += \
     button_groupbox.h \
     config.h \
     configwindow.h \
-    mainwindow.h \
     video.h
 
 FORMS += \
     button_groupbox.ui \
-    configwindow.ui \
-    mainwindow.ui
+    configwindow.ui
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin
