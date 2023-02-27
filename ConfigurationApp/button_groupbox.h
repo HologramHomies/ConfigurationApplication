@@ -1,8 +1,11 @@
 #ifndef BUTTON_GROUPBOX_H
 #define BUTTON_GROUPBOX_H
 
+#include <QVBoxLayout>
+#include <QVideoWidget>
+#include <QMediaPlayer>
 #include <QGroupBox>
-#include "videoplayer.h"
+
 
 namespace Ui {
 class Button_GroupBox;
@@ -25,7 +28,9 @@ private slots:
 
 private:
     Ui::Button_GroupBox *ui;
-    VideoPlayer *video_player = new VideoPlayer();
+    QVBoxLayout* video_layout = new QVBoxLayout;
+    QVideoWidget* video_widget = new QVideoWidget();
+    QMediaPlayer* media_player = new QMediaPlayer();
     int button_ID;
 };
 

@@ -14,6 +14,8 @@ Button_GroupBox::Button_GroupBox(QWidget *parent) :
     ui(new Ui::Button_GroupBox)
 {
     ui->setupUi(this);
+    video_layout->addWidget(video_widget);
+    media_player->setVideoOutput(video_widget);
 }
 
 Button_GroupBox::~Button_GroupBox()
@@ -33,7 +35,10 @@ void Button_GroupBox::on_openFile_pushButton_clicked()
         return;
     }
     ui->path_lineEdit->setText(video_path.toString());
-    this->video_player->setupVideo(ui->video_groupBox, video_path);
+    ui->video_groupBox->setLayout(video_layout);
+    media_player->setMedia(video_path);
+    video_widget->show();
+    media_player->play();
 }
 
 void Button_GroupBox::on_remove_pushButton_clicked(){

@@ -19,7 +19,6 @@ VideoPlayer::~VideoPlayer()
 }
 
 void VideoPlayer::setupVideo(QGroupBox* video_box, QUrl video_path){
-
     video_box->setLayout(video_layout);
     media_player->setMedia(video_path);
     video_widget->show();
