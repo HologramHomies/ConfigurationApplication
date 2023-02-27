@@ -26,14 +26,14 @@ void Button_GroupBox::on_openFile_pushButton_clicked()
     QUrl video_path = QFileDialog::getOpenFileUrl(
                     this,
                     tr("Select Video"),
-                    QString("C:/"),
+                    QString(""),
                     tr("Video Files (*.mp4 *.avi *.mov *.wmv)")
                     );
     if(video_path==QUrl("")){
         return;
     }
     ui->path_lineEdit->setText(video_path.toString());
-    this->video_player->loadVideo(video_path);
+    this->video_player->setupVideo(ui->video_groupBox, video_path);
 }
 
 void Button_GroupBox::on_remove_pushButton_clicked(){

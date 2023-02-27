@@ -1,5 +1,6 @@
 build-ConfigurationApp-Desktop_arm_darwin_generic_mach_o_64bit-Debug/
 build-ConfigurationApp-Desktop_Qt_6_4_1_MinGW_64_bit-Debug/
+build-ConfigurationApp-Desktop_Qt_5_15_2_MinGW_32_bit-Debug/
 *.idx
 .DS_Store
 *.o

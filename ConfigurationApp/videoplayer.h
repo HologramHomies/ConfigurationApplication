@@ -2,9 +2,10 @@
 #define VIDEOPLAYER_H
 
 #include <QWidget>
-#include <QGraphicsVideoItem>
+#include <QVideoWidget>
 #include <QMediaPlayer>
-#include <QGraphicsView>
+#include <QGroupBox>
+#include <QVBoxLayout>
 
 namespace Ui {
 class VideoPlayer;
@@ -17,11 +18,12 @@ class VideoPlayer : public QWidget
 public:
     explicit VideoPlayer(QWidget *parent = nullptr);
     ~VideoPlayer();
-    void loadVideo(QUrl);
+    void setupVideo(QGroupBox*, QUrl);
 
 private:
     Ui::VideoPlayer *ui;
-    QVideoWidget* video_item = new QVideoWidget();
+    QVBoxLayout* video_layout = new QVBoxLayout;
+    QVideoWidget* video_widget = new QVideoWidget();
     QMediaPlayer* media_player = new QMediaPlayer();
 };
 

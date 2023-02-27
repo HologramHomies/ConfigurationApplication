@@ -35,69 +35,8 @@
    <bool>true</bool>
   </property>
   <layout class="QGridLayout" name="gridLayout">
-   <item row="8" column="2" colspan="5">
-    <layout class="QHBoxLayout" name="footer_hbox">
-     <item>
-      <spacer name="footer_spacer">
-       <property name="orientation">
-        <enum>Qt::Horizontal</enum>
-       </property>
-       <property name="sizeHint" stdset="0">
-        <size>
-         <width>50</width>
-         <height>20</height>
-        </size>
-       </property>
-      </spacer>
-     </item>
-     <item>
-      <widget class="QPushButton" name="remove_pushButton">
-       <property name="text">
-        <string>Remove</string>
-       </property>
-      </widget>
-     </item>
-     <item>
-      <widget class="QPushButton" name="reset_pushButton">
-       <property name="text">
-        <string>Reset Settings</string>
-       </property>
-      </widget>
-     </item>
-     <item>
-      <widget class="QPushButton" name="apply_pushButton">
-       <property name="text">
-        <string>Apply Settings</string>
-       </property>
-      </widget>
-     </item>
-    </layout>
-   </item>
-   <item row="8" column="0">
-    <widget class="QSlider" name="horizontalSlider">
-     <property name="orientation">
-      <enum>Qt::Horizontal</enum>
-     </property>
-    </widget>
-   </item>
-   <item row="0" column="0" colspan="2">
-    <widget class="QGraphicsView" name="graphicsView">
-     <property name="sizePolicy">
-      <sizepolicy hsizetype="Minimum" vsizetype="Expanding">
-       <horstretch>0</horstretch>
-       <verstretch>0</verstretch>
-      </sizepolicy>
-     </property>
-     <property name="minimumSize">
-      <size>
-       <width>300</width>
-       <height>300</height>
-      </size>
-     </property>
-    </widget>
-   </item>
-   <item row="0" column="2" colspan="5">
-    <layout class="QGridLayout" name="gridLayout_2">
+   <item row="0" column="1" colspan="5">
+    <layout class="QGridLayout" name="gridLayout_2" columnminimumwidth="0,300,0">
      <item row="3" column="1">
       <widget class="QLineEdit" name="path_lineEdit"/>
      </item>
@@ -167,6 +106,76 @@
       </widget>
      </item>
     </layout>
+   </item>
+   <item row="8" column="1" colspan="5">
+    <layout class="QHBoxLayout" name="footer_hbox">
+     <item>
+      <spacer name="footer_spacer">
+       <property name="orientation">
+        <enum>Qt::Horizontal</enum>
+       </property>
+       <property name="sizeHint" stdset="0">
+        <size>
+         <width>50</width>
+         <height>20</height>
+        </size>
+       </property>
+      </spacer>
+     </item>
+     <item>
+      <widget class="QPushButton" name="remove_pushButton">
+       <property name="text">
+        <string>Remove</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QPushButton" name="reset_pushButton">
+       <property name="text">
+        <string>Reset Settings</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QPushButton" name="apply_pushButton">
+       <property name="text">
+        <string>Apply Settings</string>
+       </property>
+      </widget>
+     </item>
+    </layout>
+   </item>
+   <item row="0" column="0">
+    <widget class="QGroupBox" name="video_groupBox">
+     <property name="enabled">
+      <bool>false</bool>
+     </property>
+     <property name="sizePolicy">
+      <sizepolicy hsizetype="Minimum" vsizetype="Preferred">
+       <horstretch>0</horstretch>
+       <verstretch>0</verstretch>
+      </sizepolicy>
+     </property>
+     <property name="minimumSize">
+      <size>
+       <width>0</width>
+       <height>300</height>
+      </size>
+     </property>
+     <property name="mouseTracking">
+      <bool>true</bool>
+     </property>
+     <property name="flat">
+      <bool>false</bool>
+     </property>
+    </widget>
+   </item>
+   <item row="8" column="0">
+    <widget class="QSlider" name="horizontalSlider">
+     <property name="orientation">
+      <enum>Qt::Horizontal</enum>
+     </property>
+    </widget>
    </item>
   </layout>
  </widget>
