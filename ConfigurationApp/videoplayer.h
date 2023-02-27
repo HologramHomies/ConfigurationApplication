@@ -20,6 +20,9 @@ public:
     ~VideoPlayer();
     void setupVideo(QGroupBox*, QUrl);
 
+private slots:
+    //void playPause(); #for later pause the video
+
 private:
     Ui::VideoPlayer *ui;
     QVBoxLayout* video_layout = new QVBoxLayout;
