@@ -22,6 +22,7 @@ public:
     ~Button_GroupBox();
     int getID();
     void setID(int new_ID);
+    void playClicked();
 
 private slots:
     void on_openFile_pushButton_clicked();
@@ -30,7 +31,7 @@ private slots:
 private:
     Ui::Button_GroupBox *ui;
     QVBoxLayout* video_layout = new QVBoxLayout();
-    QVideoWidget* video_widget = new QVideoWidget();
+    QVideoWidget* video_widget = new QVideoWidget;
     QMediaPlayer* media_player = new QMediaPlayer();
 
     QLabel* icon_label = new QLabel;

@@ -46,12 +46,39 @@ void Button_GroupBox::on_openFile_pushButton_clicked()
 
     video_widget->show();
     media_player->play();
-    media_player->pause();
+    //media_player->pause();
+
+    //Pause/Play Button Functionality
+    connect(ui->pause_pushButton,&QPushButton::clicked,this,&Button_GroupBox::playClicked);
+
+    //Seeker Video Functions
+    connect(media_player,&QMediaPlayer::durationChanged,ui->seeker_slider,&QSlider::setMaximum);
+    connect(media_player,&QMediaPlayer::positionChanged,ui->seeker_slider,&QSlider::setValue);
+    connect(ui->seeker_slider,&QSlider::sliderMoved,media_player,&QMediaPlayer::setPosition);
+
+
+
+    //Brightness Video Functions
+    ui->brightness_slider->setRange(-100, 100);
+    ui->brightness_slider->setValue(video_widget->brightness());
+    connect(ui->brightness_slider, &QSlider::sliderMoved, video_widget, &QVideoWidget::setBrightness);
+    connect(video_widget, &QVideoWidget::brightnessChanged, ui->brightness_slider, &QSlider::setValue);
+
+    //Contrast Video Functions
+    ui->contrast_slider->setRange(-100, 100);
+    ui->contrast_slider->setValue(video_widget->contrast());
+    connect(ui->contrast_slider, &QSlider::sliderMoved, video_widget, &QVideoWidget::setContrast);
+    connect(video_widget, &QVideoWidget::contrastChanged, ui->contrast_slider, &QSlider::setValue);
 
     icon_label->setPixmap(play_icon);
     // Set the alignment and size of the icon label
     icon_label->setAlignment(Qt::AlignCenter);
     icon_label->setFixedSize(video_widget->size());
+
+
+    //FIX: Fixes whitespace bug when loading a video
+    ConfigWindow *configWindow=dynamic_cast<ConfigWindow*>(sender()->parent()->parent()->parent()->parent()->parent()->parent());
+    configWindow->resizeWindow();
 
 }
 
@@ -71,5 +98,18 @@ int Button_GroupBox::getID()
 void Button_GroupBox::setID(int new_button_ID)
 {
    button_ID = new_button_ID;
+}
+
+void Button_GroupBox::playClicked()
+{
+    switch (media_player->state()) {
+    case QMediaPlayer::StoppedState:
+    case QMediaPlayer::PausedState:
+        media_player->play();
+        break;
+    case QMediaPlayer::PlayingState:
+        media_player->pause();
+        break;
+    }
 }
 

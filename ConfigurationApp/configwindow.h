@@ -19,6 +19,7 @@ public:
     ~ConfigWindow();
      void removeButtonAt(int button_ID);
      void updateButtonTitles();
+     void resizeWindow();
 
 private slots:
     void on_add_pushButton_clicked();

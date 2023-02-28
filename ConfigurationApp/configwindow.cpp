@@ -48,3 +48,9 @@ void ConfigWindow::updateButtonTitles()
 
 }
 
+void ConfigWindow::resizeWindow()
+{
+    // Set the new size of the window
+    this->resize(this->width(), this->height()+1);
+}
+
