@@ -84,11 +84,26 @@ void Button_GroupBox::on_openFile_pushButton_clicked()
 
 
 void Button_GroupBox::on_remove_pushButton_clicked(){
+    media_player->setMedia(QUrl(""));
     ConfigWindow *configWindow=dynamic_cast<ConfigWindow*>(sender()->parent()->parent()->parent()->parent()->parent()->parent());
     configWindow->removeButtonAt(button_ID-1);
     delete dynamic_cast < QGroupBox * > (sender()->parent());
     configWindow->updateButtonTitles();
 }
+
+void Button_GroupBox::on_reset_pushButton_clicked(){
+
+    ui->path_lineEdit->setText("");
+    ui->brightness_slider->setValue(0);
+    ui->contrast_slider->setValue(0);
+    media_player->setMedia(QUrl(""));
+
+
+
+}
+
+
+
 
 int Button_GroupBox::getID()
 {
