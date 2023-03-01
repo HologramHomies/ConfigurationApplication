@@ -13,15 +13,13 @@ SOURCES += \
     button_groupbox.cpp \
     config.cpp \
     configwindow.cpp \
-    main.cpp \
-    video.cpp
+    main.cpp
 
 HEADERS += \
     button.h \
     button_groupbox.h \
     config.h \
-    configwindow.h \
-    video.h
+    configwindow.h
 
 FORMS += \
     button_groupbox.ui \

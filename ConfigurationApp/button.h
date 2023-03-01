@@ -3,11 +3,17 @@
 
 #include "video.h"
 
+
+
+
 class Button
 {
+
 private:
     int Button_id;
-    Video video;
+    QString video_path;
+    int brightness;
+    int contrast;
 public:
     Button();
 };

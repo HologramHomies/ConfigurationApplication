@@ -14,8 +14,11 @@ private:
 public:
     Config();
     void setConfigName(QString name);
-    void addButton();
+    void addButton(Button button);
     void removeButton(int button_id);
+    int getNumberOfButtons();
+    void setNumberOfButtons(int number_of_buttons);
+
 };
 
 #endif // CONFIG_H

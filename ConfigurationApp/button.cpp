@@ -1,6 +1,11 @@
 #include "button.h"
+#include "config.h"
 
-Button::Button()
+Button::Button(button_ID,video_path,brightness,contrast)
 {
+
+
+
+
 
 }

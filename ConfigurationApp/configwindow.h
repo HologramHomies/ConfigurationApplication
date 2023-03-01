@@ -23,12 +23,15 @@ public:
 
 private slots:
     void on_add_pushButton_clicked();
+    void on_export_pushButton_clicked();
 
 private:
     Ui::ConfigWindow *ui;
     QList<Button_GroupBox*> button_GroupBoxes; // the GUI group box
     Config *config = new Config();
     int number_of_buttons = 0;
+    int max_buttons = 8;
+    QUrl saved_path;
 
     QWidget *widget = new QWidget();
     QVBoxLayout *scroll_layout = new QVBoxLayout(this->widget);
