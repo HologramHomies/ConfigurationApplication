@@ -23,11 +23,16 @@ public:
     int getID();
     void setID(int new_ID);
     void playClicked();
+    QString getVideoPath();
+    int getBrightness();
+    int getContrast();
 
 private slots:
     void on_openFile_pushButton_clicked();
     void on_remove_pushButton_clicked();
     void on_reset_pushButton_clicked();
+    void on_contrast_slider_sliderMoved(int position);
+    void on_brightness_slider_sliderMoved(int position);
 
 private:
     Ui::Button_GroupBox *ui;
@@ -41,6 +46,9 @@ private:
     QPixmap replay_icon;
 
     int button_ID;
+    QString video_path;
+    int brightness;
+    int contrast;
 };
 
 #endif // BUTTON_GROUPBOX_H

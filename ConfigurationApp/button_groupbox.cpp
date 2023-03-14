@@ -38,6 +38,9 @@ void Button_GroupBox::on_openFile_pushButton_clicked()
     if(video_path==QUrl("")){
         return;
     }
+
+    this->video_path = video_path.toString();
+
     ui->path_lineEdit->setText(video_path.toString());
     // add video layout the the groupbox that already in the correct position on the UI
     ui->video_groupBox->setLayout(video_layout);
@@ -55,7 +58,6 @@ void Button_GroupBox::on_openFile_pushButton_clicked()
     connect(media_player,&QMediaPlayer::durationChanged,ui->seeker_slider,&QSlider::setMaximum);
     connect(media_player,&QMediaPlayer::positionChanged,ui->seeker_slider,&QSlider::setValue);
     connect(ui->seeker_slider,&QSlider::sliderMoved,media_player,&QMediaPlayer::setPosition);
-
 
 
     //Brightness Video Functions
@@ -97,12 +99,7 @@ void Button_GroupBox::on_reset_pushButton_clicked(){
     ui->brightness_slider->setValue(0);
     ui->contrast_slider->setValue(0);
     media_player->setMedia(QUrl(""));
-
-
-
 }
-
-
 
 
 int Button_GroupBox::getID()
@@ -113,6 +110,10 @@ int Button_GroupBox::getID()
 void Button_GroupBox::setID(int new_button_ID)
 {
    button_ID = new_button_ID;
+}
+
+QString Button_GroupBox::getVideoPath(){
+    return this->video_path;
 }
 
 void Button_GroupBox::playClicked()
@@ -128,3 +129,20 @@ void Button_GroupBox::playClicked()
     }
 }
 
+void Button_GroupBox::on_contrast_slider_sliderMoved(int position)
+{
+    this->contrast = position;
+}
+
+int Button_GroupBox::getContrast(){
+    return this->contrast;
+}
+
+void Button_GroupBox::on_brightness_slider_sliderMoved(int position)
+{
+    this->brightness = position;
+}
+
+int Button_GroupBox::getBrightness(){
+    return this->brightness;
+}

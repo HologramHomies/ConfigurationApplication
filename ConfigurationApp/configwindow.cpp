@@ -1,5 +1,6 @@
 #include "configwindow.h"
 #include "qdialog.h"
+#include "ui_button_groupbox.h"
 #include "ui_configwindow.h"
 #include "button_groupbox.h"
 #include "config.h"
@@ -56,7 +57,6 @@ void ConfigWindow::updateButtonTitles()
         button_GroupBoxes.at(i)->setTitle("Button #"+QString::number(button_GroupBoxes.at(i)->getID()));
         this->scroll_layout->insertWidget(i,button_GroupBoxes.at(i));
     }
-
 }
 
 void ConfigWindow::on_export_pushButton_clicked(){
@@ -68,7 +68,6 @@ void ConfigWindow::on_export_pushButton_clicked(){
 
     }
 
-
     saved_path = QFileDialog::getOpenFileUrl(
                     this,
                     tr("Select Directory"),
@@ -78,14 +77,13 @@ void ConfigWindow::on_export_pushButton_clicked(){
     config->setNumberOfButtons(number_of_buttons);
 
     for(int i = 0; i< number_of_buttons; i++){
-        Button *button = new Button();
+       int id = i;
+       QString video_path = this->button_GroupBoxes[i]->getVideoPath();
+       int brightness = this->button_GroupBoxes[i]->getBrightness();
+       int contrast = this->button_GroupBoxes[i]->getContrast();
+       Button *button = new Button(id, video_path, brightness, contrast);
        config->addButton(button);
-
     }
-
-
-
-
 }
 
 void ConfigWindow::resizeWindow()

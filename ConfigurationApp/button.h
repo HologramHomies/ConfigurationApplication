@@ -1,21 +1,18 @@
 #ifndef BUTTON_H
 #define BUTTON_H
 
-#include "video.h"
-
-
-
+#include "QWidget"
 
 class Button
 {
 
 private:
-    int Button_id;
+    int button_id;
     QString video_path;
     int brightness;
     int contrast;
 public:
-    Button();
+    Button(int button_id, QString video_path, int brightness, int contrast);
 };
 
 #endif // BUTTON_H
