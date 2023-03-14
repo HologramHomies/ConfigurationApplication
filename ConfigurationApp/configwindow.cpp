@@ -66,7 +66,6 @@ void ConfigWindow::on_export_pushButton_clicked(){
         msgBox->setText("Please Enter Configuration Name!");
         msgBox->exec();
         return;
-
     }
 
     QUrl saved_path = QFileDialog::getExistingDirectoryUrl(
@@ -78,12 +77,31 @@ void ConfigWindow::on_export_pushButton_clicked(){
     config->setNumberOfButtons(number_of_buttons);
 
     for(int i = 0; i< number_of_buttons; i++){
-       int id = i;
+       int id = this->button_GroupBoxes[i]->getID();
        QString video_path = this->button_GroupBoxes[i]->getVideoPath();
        int brightness = this->button_GroupBoxes[i]->getBrightness();
        int contrast = this->button_GroupBoxes[i]->getContrast();
        Button *button = new Button(id, video_path, brightness, contrast);
        config->addButton(button);
+
+       // Create a file object for the source video
+       QFile source_file(video_path);
+
+       // Create a directory object for the target directory
+       QDir target_dir(saved_path.toLocalFile());
+
+       // Create a file object for the target video
+       QString copy_video_name = QString::number(id) + ".mp4";
+       QString target_file_path = target_dir.absoluteFilePath(copy_video_name);
+       QFile target_file(target_file_path);
+        //qDebug() << video_path;
+       //qDebug() << target_file_path;
+       // Copy the file to the target directory with the new file name
+       if (source_file.copy(target_file_path)) {
+           qDebug() << "File copied successfully";
+       } else {
+           qDebug() << "Failed to copy file";
+       }
     }
 }
 

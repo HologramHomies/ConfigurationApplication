@@ -39,7 +39,8 @@ void Button_GroupBox::on_openFile_pushButton_clicked()
         return;
     }
 
-    this->video_path = video_path.toString();
+    this->video_path = video_path.toLocalFile();
+
 
     ui->path_lineEdit->setText(video_path.toString());
     // add video layout the the groupbox that already in the correct position on the UI
