@@ -47,6 +47,7 @@ void ConfigWindow::on_add_pushButton_clicked()
 void ConfigWindow::removeButtonAt(int button_ID)
 {
     this->button_GroupBoxes.removeAt(button_ID);
+    this->number_of_buttons -=1;
 }
 
 void ConfigWindow::updateButtonTitles()
@@ -62,18 +63,18 @@ void ConfigWindow::updateButtonTitles()
 void ConfigWindow::on_export_pushButton_clicked(){
     if(ui->configName_lineEdit->text() == ""){
         QMessageBox *msgBox = new QMessageBox();
-        msgBox->setText("Please Enter COnfiguration Name!");
+        msgBox->setText("Please Enter Configuration Name!");
         msgBox->exec();
         return;
 
     }
 
-    saved_path = QFileDialog::getOpenFileUrl(
-                    this,
-                    tr("Select Directory"),
-                    QString(""),
-                    tr("Directory. (*.dir)")
-                    );
+    QUrl saved_path = QFileDialog::getExistingDirectoryUrl(
+                        this,
+                        tr("Select Directory"),
+                        QUrl::fromLocalFile(QDir::homePath())
+                        );
+
     config->setNumberOfButtons(number_of_buttons);
 
     for(int i = 0; i< number_of_buttons; i++){
