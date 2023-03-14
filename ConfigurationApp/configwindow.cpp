@@ -86,12 +86,14 @@ void ConfigWindow::on_export_pushButton_clicked(){
 
        // Create a file object for the source video
        QFile source_file(video_path);
+       QFileInfo fileInfo(source_file.fileName());
+       QString extension = fileInfo.suffix();
 
        // Create a directory object for the target directory
        QDir target_dir(saved_path.toLocalFile());
 
        // Create a file object for the target video
-       QString copy_video_name = QString::number(id) + ".mp4";
+       QString copy_video_name = QString::number(id) +"." + extension;
        QString target_file_path = target_dir.absoluteFilePath(copy_video_name);
        QFile target_file(target_file_path);
         //qDebug() << video_path;
