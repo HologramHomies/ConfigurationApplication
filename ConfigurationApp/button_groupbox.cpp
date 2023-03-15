@@ -8,6 +8,7 @@
 #include <QDebug>
 #include <QUrl>
 #include <QString>
+#include "ctkrangeslider.h"
 
 Button_GroupBox::Button_GroupBox(QWidget *parent) :
     QGroupBox(parent),
@@ -20,6 +21,10 @@ Button_GroupBox::Button_GroupBox(QWidget *parent) :
     play_icon.load(":/icons/icons/play.png");
     pause_icon.load(":/icons/icons/pause.png");
     replay_icon.load(":/icons/icons/replay.png");
+
+    ctkRangeSlider* trim_slider = new ctkRangeSlider();
+    trim_slider->setOrientation(Qt::Horizontal);
+    ui->trim_layout->addWidget(trim_slider);
 }
 
 Button_GroupBox::~Button_GroupBox()

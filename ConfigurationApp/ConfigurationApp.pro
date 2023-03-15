@@ -13,13 +13,15 @@ SOURCES += \
     button_groupbox.cpp \
     config.cpp \
     configwindow.cpp \
+    ctkrangeslider.cpp \
     main.cpp
 
 HEADERS += \
     button.h \
     button_groupbox.h \
     config.h \
-    configwindow.h
+    configwindow.h \
+    ctkrangeslider.h
 
 FORMS += \
     button_groupbox.ui \

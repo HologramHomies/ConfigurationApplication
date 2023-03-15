@@ -92,30 +92,16 @@
     </layout>
    </item>
    <item row="0" column="1">
-    <layout class="QGridLayout" name="gridLayout_2" columnminimumwidth="0,300,0">
+    <layout class="QGridLayout" name="gridLayout_2">
+     <item row="3" column="2">
+      <widget class="QPushButton" name="openFile_pushButton">
+       <property name="text">
+        <string>Open File...</string>
+       </property>
+      </widget>
+     </item>
      <item row="3" column="1">
       <widget class="QLineEdit" name="path_lineEdit"/>
-     </item>
-     <item row="3" column="0">
-      <widget class="QLabel" name="path_label">
-       <property name="text">
-        <string>Path</string>
-       </property>
-      </widget>
-     </item>
-     <item row="2" column="0">
-      <widget class="QLabel" name="trim_label">
-       <property name="text">
-        <string>Trim</string>
-       </property>
-      </widget>
-     </item>
-     <item row="0" column="0">
-      <widget class="QLabel" name="brightness_label">
-       <property name="text">
-        <string>Brightness</string>
-       </property>
-      </widget>
      </item>
      <item row="1" column="0">
       <widget class="QLabel" name="constrast_label">
@@ -124,10 +110,16 @@
        </property>
       </widget>
      </item>
-     <item row="3" column="2">
-      <widget class="QPushButton" name="openFile_pushButton">
-       <property name="text">
-        <string>Open File...</string>
+     <item row="1" column="1" colspan="2">
+      <widget class="QSlider" name="contrast_slider">
+       <property name="minimum">
+        <number>-100</number>
+       </property>
+       <property name="maximum">
+        <number>100</number>
+       </property>
+       <property name="orientation">
+        <enum>Qt::Horizontal</enum>
        </property>
       </widget>
      </item>
@@ -153,25 +145,29 @@
        </property>
       </widget>
      </item>
-     <item row="1" column="1" colspan="2">
-      <widget class="QSlider" name="contrast_slider">
-       <property name="minimum">
-        <number>-100</number>
+     <item row="3" column="0">
+      <widget class="QLabel" name="path_label">
+       <property name="text">
+        <string>Path</string>
        </property>
-       <property name="maximum">
-        <number>100</number>
+      </widget>
+     </item>
+     <item row="0" column="0">
+      <widget class="QLabel" name="brightness_label">
+       <property name="text">
+        <string>Brightness</string>
        </property>
-       <property name="orientation">
-        <enum>Qt::Horizontal</enum>
+      </widget>
+     </item>
+     <item row="2" column="0">
+      <widget class="QLabel" name="trim_label">
+       <property name="text">
+        <string>Trim</string>
        </property>
       </widget>
      </item>
      <item row="2" column="1" colspan="2">
-      <widget class="QSlider" name="trim_slider">
-       <property name="orientation">
-        <enum>Qt::Horizontal</enum>
-       </property>
-      </widget>
+      <layout class="QHBoxLayout" name="trim_layout"/>
      </item>
     </layout>
    </item>
