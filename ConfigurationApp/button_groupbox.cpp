@@ -22,7 +22,6 @@ Button_GroupBox::Button_GroupBox(QWidget *parent) :
     pause_icon.load(":/icons/icons/pause.png");
     replay_icon.load(":/icons/icons/replay.png");
 
-    ctkRangeSlider* trim_slider = new ctkRangeSlider();
     trim_slider->setOrientation(Qt::Horizontal);
     ui->trim_layout->addWidget(trim_slider);
 }
@@ -77,6 +76,24 @@ void Button_GroupBox::on_openFile_pushButton_clicked()
     ui->contrast_slider->setValue(video_widget->contrast());
     connect(ui->contrast_slider, &QSlider::sliderMoved, video_widget, &QVideoWidget::setContrast);
     connect(video_widget, &QVideoWidget::contrastChanged, ui->contrast_slider, &QSlider::setValue);
+
+    //Trim Video Functions
+    connect(media_player,&QMediaPlayer::durationChanged,trim_slider,&ctkRangeSlider::setMaximumValue);
+    //connect(media_player,&QMediaPlayer::durationChanged,trim_slider,&ctkRangeSlider::setMaximumPosition);
+    connect(trim_slider,&ctkRangeSlider::minimumPositionChanged,ui->seeker_slider,&QSlider::setMinimum);
+    connect(trim_slider,&ctkRangeSlider::minimumPositionChanged,ui->seeker_slider,&QSlider::setSliderPosition);
+
+    //connect(media_player,&QMediaPlayer::positionChanged,ui->seeker_slider,&QSlider::setValue);
+    connect(trim_slider,&ctkRangeSlider::minimumPositionChanged,media_player,&QMediaPlayer::setPosition);
+    trim_slider->setMinimumPosition(0);
+    trim_slider->setMaximumPosition(media_player->duration());
+    //trim_slider->setMinimumValue(0);
+    //trim_slider->setMaximumValue(media_player->duration());
+    qDebug() << media_player->duration();
+    qDebug() << media_player;
+    //connect(trim_slider,)
+    //connect(media_player,&QMediaPlayer::durationChanged,ui->seeker_slider,&QSlider::setMaximum);
+
 
     icon_label->setPixmap(play_icon);
     // Set the alignment and size of the icon label

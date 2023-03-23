@@ -7,6 +7,7 @@
 #include <QGroupBox>
 #include <QLabel>
 #include <QPixmap>
+#include <ctkrangeslider.h>
 
 
 namespace Ui {
@@ -39,6 +40,7 @@ private:
     QVBoxLayout* video_layout = new QVBoxLayout();
     QVideoWidget* video_widget = new QVideoWidget;
     QMediaPlayer* media_player = new QMediaPlayer();
+    ctkRangeSlider* trim_slider = new ctkRangeSlider();
 
     QLabel* icon_label = new QLabel;
     QPixmap play_icon;
