@@ -1,7 +1,7 @@
 #include "button_groupbox.h"
 #include "ui_button_groupbox.h"
 #include "configwindow.h"
-
+#include <unistd.h>
 #include <QFileDialog>
 #include <QMediaPlayer>
 #include <QVideoWidget>
@@ -63,6 +63,7 @@ void Button_GroupBox::on_openFile_pushButton_clicked()
     connect(media_player,&QMediaPlayer::durationChanged,ui->seeker_slider,&QSlider::setMaximum);
     connect(media_player,&QMediaPlayer::positionChanged,ui->seeker_slider,&QSlider::setValue);
     connect(ui->seeker_slider,&QSlider::sliderMoved,media_player,&QMediaPlayer::setPosition);
+    connect(ui->seeker_slider,&QSlider::valueChanged,media_player,&QMediaPlayer::setPosition);
 
 
     //Brightness Video Functions
@@ -78,19 +79,54 @@ void Button_GroupBox::on_openFile_pushButton_clicked()
     connect(video_widget, &QVideoWidget::contrastChanged, ui->contrast_slider, &QSlider::setValue);
 
     //Trim Video Functions
+    trim_slider->setMinimumValue(0);
+    trim_slider->setMinimumPosition(0);
+    //trim_slider->setTracking(false);
+
+    connect(trim_slider,&ctkRangeSlider::maximumValueChanged, [=](int value) {
+        qDebug() << "New max value:" << value;
+    });
+
+    connect(media_player,&QMediaPlayer::durationChanged, [=](int value) {
+        qDebug() << "New duration value:" << value;
+        trim_slider->setMaximumValue(value);
+        qDebug() << "New max value:" << trim_slider->maximumValue();
+    });
+
     connect(media_player,&QMediaPlayer::durationChanged,trim_slider,&ctkRangeSlider::setMaximumValue);
     //connect(media_player,&QMediaPlayer::durationChanged,trim_slider,&ctkRangeSlider::setMaximumPosition);
-    connect(trim_slider,&ctkRangeSlider::minimumPositionChanged,ui->seeker_slider,&QSlider::setMinimum);
-    connect(trim_slider,&ctkRangeSlider::minimumPositionChanged,ui->seeker_slider,&QSlider::setSliderPosition);
+//    connect(trim_slider,&ctkRangeSlider::minimumPositionChanged,ui->seeker_slider,&QSlider::setMinimum);
+//    connect(trim_slider,&ctkRangeSlider::minimumPositionChanged,media_player,&QMediaPlayer::setPosition);
+//    connect(trim_slider,&ctkRangeSlider::minimumPositionChanged,ui->seeker_slider,&QSlider::setValue);
+
+
+    //Properly subtract value from minimum
+    connect(trim_slider,&ctkRangeSlider::minimumPositionChanged, [=](int value) {
+        qDebug() << "New minimum value:" << value;
+        if(value==0){
+            ui->seeker_slider->setMinimum(0);
+            ui->seeker_slider->setSliderPosition(0);
+        }
+        else{
+            ui->seeker_slider->setMinimum((media_player->duration()/value)+(media_player->duration()%value));
+            ui->seeker_slider->setSliderPosition((media_player->duration()/value)+(media_player->duration()%value));
+        }
+    });
+
+    connect(ui->seeker_slider,&QSlider::valueChanged, [=](int value) {
+        qDebug() << "New seeker slider value:" << value;
+    });
+    //connect(trim_slider,&ctkRangeSlider::minimumPositionChanged,ui->seeker_slider,&QSlider::setValue);
 
     //connect(media_player,&QMediaPlayer::positionChanged,ui->seeker_slider,&QSlider::setValue);
-    connect(trim_slider,&ctkRangeSlider::minimumPositionChanged,media_player,&QMediaPlayer::setPosition);
-    trim_slider->setMinimumPosition(0);
+    //connect(trim_slider,&ctkRangeSlider::minimumPositionChanged,media_player,&QMediaPlayer::setPosition);
+
     trim_slider->setMaximumPosition(media_player->duration());
     //trim_slider->setMinimumValue(0);
     //trim_slider->setMaximumValue(media_player->duration());
-    qDebug() << media_player->duration();
-    qDebug() << media_player;
+    //qDebug() << trim_slider->minimumValueChanged();
+
+
     //connect(trim_slider,)
     //connect(media_player,&QMediaPlayer::durationChanged,ui->seeker_slider,&QSlider::setMaximum);
 

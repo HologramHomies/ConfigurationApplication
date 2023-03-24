@@ -84,9 +84,9 @@ ctkRangeSliderPrivate::ctkRangeSliderPrivate(ctkRangeSlider& object)
   :q_ptr(&object)
 {
   this->m_MinimumValue = 0;
-  this->m_MaximumValue = 100;
+  this->m_MaximumValue = 999999;
   this->m_MinimumPosition = 0;
-  this->m_MaximumPosition = 100;
+  this->m_MaximumPosition = 999999;
   this->m_MinimumSliderSelected = QStyle::SC_None;
   this->m_MaximumSliderSelected = QStyle::SC_None;
   this->m_SubclassClickOffset = 0;
