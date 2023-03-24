@@ -10,6 +10,13 @@
 #include <QString>
 #include "ctkrangeslider.h"
 
+
+/* TODO
+ *
+
+
+*/
+
 Button_GroupBox::Button_GroupBox(QWidget *parent) :
     QGroupBox(parent),
     ui(new Ui::Button_GroupBox)
@@ -81,54 +88,32 @@ void Button_GroupBox::on_openFile_pushButton_clicked()
     //Trim Video Functions
     trim_slider->setMinimumValue(0);
     trim_slider->setMinimumPosition(0);
-    //trim_slider->setTracking(false);
+    trim_slider->setMaximumPosition(100);
+    trim_slider->setMaximumValue(100);
 
-    connect(trim_slider,&ctkRangeSlider::maximumValueChanged, [=](int value) {
-        qDebug() << "New max value:" << value;
-    });
-
-    connect(media_player,&QMediaPlayer::durationChanged, [=](int value) {
-        qDebug() << "New duration value:" << value;
-        trim_slider->setMaximumValue(value);
-        qDebug() << "New max value:" << trim_slider->maximumValue();
-    });
-
-    connect(media_player,&QMediaPlayer::durationChanged,trim_slider,&ctkRangeSlider::setMaximumValue);
-    //connect(media_player,&QMediaPlayer::durationChanged,trim_slider,&ctkRangeSlider::setMaximumPosition);
-//    connect(trim_slider,&ctkRangeSlider::minimumPositionChanged,ui->seeker_slider,&QSlider::setMinimum);
-//    connect(trim_slider,&ctkRangeSlider::minimumPositionChanged,media_player,&QMediaPlayer::setPosition);
-//    connect(trim_slider,&ctkRangeSlider::minimumPositionChanged,ui->seeker_slider,&QSlider::setValue);
-
-
-    //Properly subtract value from minimum
     connect(trim_slider,&ctkRangeSlider::minimumPositionChanged, [=](int value) {
         qDebug() << "New minimum value:" << value;
-        if(value==0){
-            ui->seeker_slider->setMinimum(0);
-            ui->seeker_slider->setSliderPosition(0);
-        }
-        else{
-            ui->seeker_slider->setMinimum((media_player->duration()/value)+(media_player->duration()%value));
-            ui->seeker_slider->setSliderPosition((media_player->duration()/value)+(media_player->duration()%value));
-        }
+        int new_start = (value*media_player->duration())/100;
+        ui->seeker_slider->setMinimum(new_start);
     });
+
+    connect(trim_slider,&ctkRangeSlider::maximumPositionChanged, [=](int value) {
+        qDebug() << "New Maximum value:" << value;
+        int new_end = (value*media_player->duration())/100;
+        ui->seeker_slider->setMaximum(new_end);
+        if(new_end<media_player->position()){
+            media_player->stop();
+        }
+    });\
+
 
     connect(ui->seeker_slider,&QSlider::valueChanged, [=](int value) {
-        qDebug() << "New seeker slider value:" << value;
+        qDebug() << "New Current value:" << value;
+        qDebug() << "New Maximum seeker value:" << ui->seeker_slider->maximum();
+        if(value >= ui->seeker_slider->maximum()){
+            media_player->stop();
+        }
     });
-    //connect(trim_slider,&ctkRangeSlider::minimumPositionChanged,ui->seeker_slider,&QSlider::setValue);
-
-    //connect(media_player,&QMediaPlayer::positionChanged,ui->seeker_slider,&QSlider::setValue);
-    //connect(trim_slider,&ctkRangeSlider::minimumPositionChanged,media_player,&QMediaPlayer::setPosition);
-
-    trim_slider->setMaximumPosition(media_player->duration());
-    //trim_slider->setMinimumValue(0);
-    //trim_slider->setMaximumValue(media_player->duration());
-    //qDebug() << trim_slider->minimumValueChanged();
-
-
-    //connect(trim_slider,)
-    //connect(media_player,&QMediaPlayer::durationChanged,ui->seeker_slider,&QSlider::setMaximum);
 
 
     icon_label->setPixmap(play_icon);
@@ -205,3 +190,5 @@ void Button_GroupBox::on_brightness_slider_sliderMoved(int position)
 int Button_GroupBox::getBrightness(){
     return this->brightness;
 }
+
+

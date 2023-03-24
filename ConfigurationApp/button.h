@@ -11,6 +11,8 @@ private:
     QString video_path;
     int brightness;
     int contrast;
+    int start;
+    int end;
 public:
     Button(int button_id, QString video_path, int brightness, int contrast);
 };

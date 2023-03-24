@@ -7,4 +7,5 @@ Button::Button(int button_id,QString video_path,int brightness, int contrast)
     this->video_path = video_path;
     this->brightness = brightness;
     this->contrast = contrast;
+
 }
