@@ -9,7 +9,6 @@ Config::Config()
 
 void Config::setNumberOfButtons(int number_of_buttons){
     this->number_of_buttons = number_of_buttons;
-
 }
 
 

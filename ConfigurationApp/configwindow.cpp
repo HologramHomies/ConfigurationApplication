@@ -1,4 +1,5 @@
 #include "configwindow.h"
+#include "hologram_preview.h"
 #include "qdialog.h"
 #include "ui_button_groupbox.h"
 #include "ui_configwindow.h"
@@ -105,6 +106,28 @@ void ConfigWindow::on_export_pushButton_clicked(){
            qDebug() << "Failed to copy file";
        }
     }
+}
+
+void ConfigWindow::on_hologramPreview_pushButton_clicked()
+{
+    QList<Button*> prev_buttons;
+    hologram_preview *h = new hologram_preview;
+    for(int i = 0; i< number_of_buttons; i++){
+       int id = this->button_GroupBoxes[i]->getID();
+       QString video_path = this->button_GroupBoxes[i]->getVideoPath();
+       int brightness = this->button_GroupBoxes[i]->getBrightness();
+       int contrast = this->button_GroupBoxes[i]->getContrast();
+//       Button *button = new Button(id, video_path, brightness, contrast);
+//       prev_buttons.append(button);
+       h->setting_buttons(id, video_path, brightness, contrast);
+       qDebug() <<"no";
+    }
+
+
+
+
+    h->show();
+
 }
 
 void ConfigWindow::resizeWindow()

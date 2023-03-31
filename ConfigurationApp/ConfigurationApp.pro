@@ -14,6 +14,7 @@ SOURCES += \
     config.cpp \
     configwindow.cpp \
     ctkrangeslider.cpp \
+    hologram_preview.cpp \
     main.cpp
 
 HEADERS += \
@@ -21,11 +22,13 @@ HEADERS += \
     button_groupbox.h \
     config.h \
     configwindow.h \
-    ctkrangeslider.h
+    ctkrangeslider.h \
+    hologram_preview.h
 
 FORMS += \
     button_groupbox.ui \
-    configwindow.ui
+    configwindow.ui \
+    hologram_preview.ui
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin

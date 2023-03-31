@@ -24,6 +24,7 @@ public:
 private slots:
     void on_add_pushButton_clicked();
     void on_export_pushButton_clicked();
+    void on_hologramPreview_pushButton_clicked();
 
 private:
     Ui::ConfigWindow *ui;
