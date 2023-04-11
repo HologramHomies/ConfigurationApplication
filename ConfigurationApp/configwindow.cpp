@@ -8,6 +8,7 @@
 #include <QMessageBox>
 #include <QDebug>
 #include <QFileDialog>
+#include <QXmlStreamWriter>
 
 ConfigWindow::ConfigWindow(QWidget *parent) :
     QMainWindow(parent),
@@ -62,11 +63,18 @@ void ConfigWindow::updateButtonTitles()
 }
 
 void ConfigWindow::on_export_pushButton_clicked(){
-    if(ui->configName_lineEdit->text() == ""){
+    QString configName = ui->configName_lineEdit->text();
+    QString cleanedConfigName;
+    if(configName == ""){
         QMessageBox *msgBox = new QMessageBox();
         msgBox->setText("Please Enter Configuration Name!");
         msgBox->exec();
         return;
+    } else {
+        // config name set, remove illegal characters for saving
+        QStringList invalidChars = { "\\", "/", ":", "*", "?", "\"", "<", ">", "|" };
+        QStringList parts = configName.split(QRegExp("[" + invalidChars.join("") + "]"));
+        cleanedConfigName = parts.join("_");
     }
 
     QUrl saved_path = QFileDialog::getExistingDirectoryUrl(
@@ -74,6 +82,40 @@ void ConfigWindow::on_export_pushButton_clicked(){
                         tr("Select Directory"),
                         QUrl::fromLocalFile(QDir::homePath())
                         );
+
+    // validate directory
+    if (!saved_path.isEmpty()) {
+        QFile file(saved_path.path() + "/" + cleanedConfigName + ".xml");
+        if (file.open(QIODevice::WriteOnly | QIODevice::Text)) {
+            QXmlStreamWriter xml(&file);
+            xml.setAutoFormatting(true);
+
+            xml.writeStartDocument();
+            xml.writeStartElement("configuration");
+            xml.writeAttribute("name", configName);
+            for(int i = 0; i< number_of_buttons; i++){
+                QString id         = QString::number(this->button_GroupBoxes[i]->getID());
+                QString brightness = QString::number(this->button_GroupBoxes[i]->getBrightness());
+                QString contrast   = QString::number(this->button_GroupBoxes[i]->getContrast());
+                QString start_pos = QString::number(this->button_GroupBoxes[i]->getStartPos());
+                QString end_pos = QString::number(this->button_GroupBoxes[i]->getEndPos());
+                QString video_path = this->button_GroupBoxes[i]->getVideoPath();
+
+                xml.writeStartElement("button");
+                xml.writeAttribute("id", id);
+                xml.writeAttribute("video_path", video_path);
+                xml.writeAttribute("brightness", brightness);
+                xml.writeAttribute("contrast", contrast);
+                xml.writeAttribute("start_pos", contrast);
+                xml.writeAttribute("end_pos", contrast);
+                xml.writeEndElement();
+            }
+            xml.writeEndElement();
+            xml.writeEndDocument();
+
+            file.close();
+        }
+    }
 
     config->setNumberOfButtons(number_of_buttons);
 
@@ -122,9 +164,6 @@ void ConfigWindow::on_hologramPreview_pushButton_clicked()
        h->setting_buttons(id, video_path, brightness, contrast);
        qDebug() <<"no";
     }
-
-
-
 
     h->show();
 

@@ -93,6 +93,7 @@ void Button_GroupBox::on_openFile_pushButton_clicked()
 
     connect(trim_slider,&ctkRangeSlider::minimumPositionChanged, [=](int value) {
         qDebug() << "New minimum value:" << value;
+        this->end_pos = value;
         int new_start = (value*media_player->duration())/100;
         ui->seeker_slider->setMinimum(new_start);
     });
@@ -101,6 +102,7 @@ void Button_GroupBox::on_openFile_pushButton_clicked()
         qDebug() << "New Maximum value:" << value;
         int new_end = (value*media_player->duration())/100;
         ui->seeker_slider->setMaximum(new_end);
+        this->start_pos = value;
         if(new_end<media_player->position()){
             media_player->stop();
         }
@@ -190,5 +192,16 @@ void Button_GroupBox::on_brightness_slider_sliderMoved(int position)
 int Button_GroupBox::getBrightness(){
     return this->brightness;
 }
+
+
+int Button_GroupBox::getStartPos(){
+    return this->start_pos;
+}
+
+
+int Button_GroupBox::getEndPos(){
+    return this->end_pos;
+}
+
 
 

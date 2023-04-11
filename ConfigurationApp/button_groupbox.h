@@ -27,6 +27,8 @@ public:
     QString getVideoPath();
     int getBrightness();
     int getContrast();
+    int getStartPos();
+    int getEndPos();
 
 private slots:
     void on_openFile_pushButton_clicked();
@@ -51,6 +53,8 @@ private:
     QString video_path;
     int brightness;
     int contrast;
+    int start_pos;
+    int end_pos;
 };
 
 #endif // BUTTON_GROUPBOX_H
