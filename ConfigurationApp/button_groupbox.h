@@ -36,7 +36,8 @@ private slots:
     void on_reset_pushButton_clicked();
     void on_contrast_slider_sliderMoved(int position);
     void on_brightness_slider_sliderMoved(int position);
-
+    void on_trim_slider_maxMoved(int position);
+    void on_trim_slider_minMoved(int position);
 private:
     Ui::Button_GroupBox *ui;
     QVBoxLayout* video_layout = new QVBoxLayout();

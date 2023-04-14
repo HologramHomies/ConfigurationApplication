@@ -85,8 +85,12 @@ void ConfigWindow::on_export_pushButton_clicked(){
 
     // validate directory
     if (!saved_path.isEmpty()) {
-        QFile file(saved_path.path() + "/" + cleanedConfigName + ".xml");
-        if (file.open(QIODevice::WriteOnly | QIODevice::Text)) {
+        QFile file(saved_path.toLocalFile() + "/" + cleanedConfigName + ".xml");
+        qDebug()<<saved_path.toLocalFile();
+        qDebug()<<saved_path.path();
+
+        if (file.open(QIODevice::WriteOnly | QIODevice::Truncate | QIODevice::Text)) {
+            qDebug()<<"yo";
             QXmlStreamWriter xml(&file);
             xml.setAutoFormatting(true);
 
@@ -102,12 +106,13 @@ void ConfigWindow::on_export_pushButton_clicked(){
                 QString video_path = this->button_GroupBoxes[i]->getVideoPath();
 
                 xml.writeStartElement("button");
-                xml.writeAttribute("id", id);
-                xml.writeAttribute("video_path", video_path);
-                xml.writeAttribute("brightness", brightness);
+                xml.writeAttribute("end_pos", end_pos);
+                xml.writeAttribute("start_pos", start_pos);
                 xml.writeAttribute("contrast", contrast);
-                xml.writeAttribute("start_pos", contrast);
-                xml.writeAttribute("end_pos", contrast);
+                xml.writeAttribute("brightness", brightness);
+                xml.writeAttribute("video_path", video_path);
+                xml.writeAttribute("id", id);
+
                 xml.writeEndElement();
             }
             xml.writeEndElement();

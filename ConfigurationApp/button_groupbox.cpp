@@ -75,13 +75,13 @@ void Button_GroupBox::on_openFile_pushButton_clicked()
 
     //Brightness Video Functions
     ui->brightness_slider->setRange(-100, 100);
-    ui->brightness_slider->setValue(video_widget->brightness());
+    ui->brightness_slider->setValue(0);
     connect(ui->brightness_slider, &QSlider::sliderMoved, video_widget, &QVideoWidget::setBrightness);
     connect(video_widget, &QVideoWidget::brightnessChanged, ui->brightness_slider, &QSlider::setValue);
 
     //Contrast Video Functions
     ui->contrast_slider->setRange(-100, 100);
-    ui->contrast_slider->setValue(video_widget->contrast());
+    ui->contrast_slider->setValue(0);
     connect(ui->contrast_slider, &QSlider::sliderMoved, video_widget, &QVideoWidget::setContrast);
     connect(video_widget, &QVideoWidget::contrastChanged, ui->contrast_slider, &QSlider::setValue);
 
@@ -93,19 +93,21 @@ void Button_GroupBox::on_openFile_pushButton_clicked()
 
     connect(trim_slider,&ctkRangeSlider::minimumPositionChanged, [=](int value) {
         qDebug() << "New minimum value:" << value;
-        this->end_pos = value;
+        //this->end_pos = value;
         int new_start = (value*media_player->duration())/100;
         ui->seeker_slider->setMinimum(new_start);
+        this->on_trim_slider_minMoved(value);
     });
 
     connect(trim_slider,&ctkRangeSlider::maximumPositionChanged, [=](int value) {
         qDebug() << "New Maximum value:" << value;
         int new_end = (value*media_player->duration())/100;
         ui->seeker_slider->setMaximum(new_end);
-        this->start_pos = value;
+        //this->start_pos = value;
         if(new_end<media_player->position()){
             media_player->stop();
         }
+        this->on_trim_slider_maxMoved(value);
     });\
 
 
@@ -191,6 +193,16 @@ void Button_GroupBox::on_brightness_slider_sliderMoved(int position)
 
 int Button_GroupBox::getBrightness(){
     return this->brightness;
+}
+
+void Button_GroupBox::on_trim_slider_maxMoved(int position)
+{
+    this->end_pos = position;
+}
+
+void Button_GroupBox::on_trim_slider_minMoved(int position)
+{
+    this->start_pos = position;
 }
 
 
