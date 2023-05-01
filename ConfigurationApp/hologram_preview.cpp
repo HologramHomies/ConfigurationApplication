@@ -16,24 +16,30 @@ hologram_preview::hologram_preview(QWidget *parent) :
 
 hologram_preview::~hologram_preview()
 {
+    delete video_widget;
     delete media_player;
     delete ui;
+
 }
 
-void hologram_preview::setting_buttons(int id, QString video_path,int brightness, int contrast){
-
-    qDebug() <<"clicked";
-    qDebug() << id;
-
+void hologram_preview::setting_buttons(int id, QString video_path,int brightness,
+                                       int contrast, int start_pos, int end_pos ){
 
     QPushButton* preview_button = findChild<QPushButton*>("pushButton" + QString::number(id));
-    qDebug() << preview_button;
     connect(preview_button, &QPushButton::clicked, this, [=]() {
         qDebug() << "Button" << id << "clicked";
         media_player->setVideoOutput(video_widget);
         media_player->setMedia(QUrl(video_path));
+        video_widget->setBrightness(brightness);
+        //video_widget->
+        video_widget->setContrast(contrast);
+
+
+        media_player->setPosition(start_pos);
+
         video_widget->show();
         media_player->play();
+
     });
 
 }

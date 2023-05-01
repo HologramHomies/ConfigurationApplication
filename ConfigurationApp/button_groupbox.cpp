@@ -197,11 +197,13 @@ int Button_GroupBox::getBrightness(){
 
 void Button_GroupBox::on_trim_slider_maxMoved(int position)
 {
+    position = (position*media_player->duration())/100;
     this->end_pos = position;
 }
 
 void Button_GroupBox::on_trim_slider_minMoved(int position)
 {
+    position = (position*media_player->duration())/100;
     this->start_pos = position;
 }
 

@@ -16,7 +16,7 @@ class hologram_preview : public QMainWindow
 public:
     explicit hologram_preview(QWidget *parent = nullptr);
     ~hologram_preview();
-    void setting_buttons(int id, QString video_path, int brightness, int contrast);
+    void setting_buttons(int id, QString video_path, int brightness, int contrast, int start_pos, int end_pos);
 
 
 private:

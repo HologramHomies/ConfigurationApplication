@@ -105,6 +105,7 @@ void ConfigWindow::on_export_pushButton_clicked(){
                 QString end_pos = QString::number(this->button_GroupBoxes[i]->getEndPos());
                 QString video_path = this->button_GroupBoxes[i]->getVideoPath();
 
+
                 xml.writeStartElement("button");
                 xml.writeAttribute("end_pos", end_pos);
                 xml.writeAttribute("start_pos", start_pos);
@@ -164,10 +165,12 @@ void ConfigWindow::on_hologramPreview_pushButton_clicked()
        QString video_path = this->button_GroupBoxes[i]->getVideoPath();
        int brightness = this->button_GroupBoxes[i]->getBrightness();
        int contrast = this->button_GroupBoxes[i]->getContrast();
+       int start_pos = this->button_GroupBoxes[i]->getStartPos();
+       int end_pos = this->button_GroupBoxes[i]->getEndPos();
+       qDebug()<<brightness;
 //       Button *button = new Button(id, video_path, brightness, contrast);
 //       prev_buttons.append(button);
-       h->setting_buttons(id, video_path, brightness, contrast);
-       qDebug() <<"no";
+       h->setting_buttons(id, video_path, brightness, contrast,start_pos,end_pos);
     }
 
     h->show();
