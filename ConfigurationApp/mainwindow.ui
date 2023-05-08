@@ -6,12 +6,18 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>817</width>
-    <height>559</height>
+    <width>800</width>
+    <height>600</height>
    </rect>
   </property>
   <property name="windowTitle">
    <string>Hologram Configurator</string>
+  </property>
+  <property name="autoFillBackground">
+   <bool>false</bool>
+  </property>
+  <property name="styleSheet">
+   <string notr="true">b</string>
   </property>
   <widget class="QWidget" name="centralwidget">
    <layout class="QVBoxLayout" name="verticalLayout_2">
@@ -25,13 +31,13 @@
         <rect>
          <x>0</x>
          <y>0</y>
-         <width>805</width>
-         <height>392</height>
+         <width>780</width>
+         <height>505</height>
         </rect>
        </property>
        <layout class="QVBoxLayout" name="verticalLayout">
         <item>
-         <widget class="QGroupBox" name="originalGroupBox">
+         <widget class="QGroupBox" name="b1_gbox">
           <property name="font">
            <font>
             <pointsize>14</pointsize>
@@ -53,17 +59,120 @@
            <bool>true</bool>
           </property>
           <layout class="QGridLayout" name="gridLayout_2">
-           <item row="0" column="0">
-            <widget class="QLabel" name="videoPlayer_label">
-             <property name="sizePolicy">
-              <sizepolicy hsizetype="MinimumExpanding" vsizetype="Expanding">
-               <horstretch>0</horstretch>
-               <verstretch>0</verstretch>
-              </sizepolicy>
+           <item row="3" column="6">
+            <widget class="QPushButton" name="b1OpenFile_button">
+             <property name="text">
+              <string>Open File...</string>
              </property>
+            </widget>
+           </item>
+           <item row="3" column="4">
+            <widget class="QLabel" name="b1Path_label">
+             <property name="text">
+              <string>Path</string>
+             </property>
+            </widget>
+           </item>
+           <item row="1" column="4">
+            <widget class="QLabel" name="b1Constrast_label">
+             <property name="text">
+              <string>Contrast</string>
+             </property>
+            </widget>
+           </item>
+           <item row="3" column="5">
+            <widget class="QLineEdit" name="b1Path_lineEdit"/>
+           </item>
+           <item row="5" column="5" colspan="2">
+            <layout class="QHBoxLayout" name="b1Footer_hbox">
+             <item>
+              <spacer name="b1Footer_spacer">
+               <property name="orientation">
+                <enum>Qt::Horizontal</enum>
+               </property>
+               <property name="sizeHint" stdset="0">
+                <size>
+                 <width>50</width>
+                 <height>20</height>
+                </size>
+               </property>
+              </spacer>
+             </item>
+             <item>
+              <widget class="QPushButton" name="b1Reset_button">
+               <property name="text">
+                <string>Reset Settings</string>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QPushButton" name="b1Apply_button">
+               <property name="text">
+                <string>Apply Settings</string>
+               </property>
+              </widget>
+             </item>
+            </layout>
+           </item>
+           <item row="0" column="4">
+            <widget class="QLabel" name="b1Brightness_label">
+             <property name="text">
+              <string>Brightness</string>
+             </property>
+            </widget>
+           </item>
+           <item row="2" column="4">
+            <widget class="QLabel" name="b1Trim_label">
+             <property name="text">
+              <string>Trim</string>
+             </property>
+            </widget>
+           </item>
+           <item row="5" column="1">
+            <widget class="QPushButton" name="b1Preview_button">
+             <property name="toolTip">
+              <string>Open video in new window.</string>
+             </property>
+             <property name="text">
+              <string>Large Preview</string>
+             </property>
+            </widget>
+           </item>
+           <item row="2" column="5" colspan="2">
+            <widget class="QSlider" name="b1Trim_slider">
+             <property name="orientation">
+              <enum>Qt::Horizontal</enum>
+             </property>
+            </widget>
+           </item>
+           <item row="1" column="5" colspan="2">
+            <widget class="QSlider" name="b1Contrast_slider">
+             <property name="orientation">
+              <enum>Qt::Horizontal</enum>
+             </property>
+            </widget>
+           </item>
+           <item row="0" column="5" colspan="2">
+            <widget class="QSlider" name="b1Brightness_slider">
+             <property name="value">
+              <number>50</number>
+             </property>
+             <property name="sliderPosition">
+              <number>50</number>
+             </property>
+             <property name="tracking">
+              <bool>true</bool>
+             </property>
+             <property name="orientation">
+              <enum>Qt::Horizontal</enum>
+             </property>
+            </widget>
+           </item>
+           <item row="0" column="0" rowspan="5" colspan="3">
+            <widget class="QLabel" name="videoPlayerPlaceholder_label">
              <property name="minimumSize">
               <size>
-               <width>250</width>
+               <width>300</width>
                <height>200</height>
               </size>
              </property>
@@ -78,159 +187,54 @@
              </property>
             </widget>
            </item>
-           <item row="1" column="0">
-            <widget class="QPushButton" name="largePreview_pushButton">
-             <property name="text">
-              <string>Large Preview</string>
-             </property>
-            </widget>
-           </item>
-           <item row="1" column="1">
-            <layout class="QHBoxLayout" name="videoButtonOptions_HLayout">
-             <item>
-              <spacer name="hSpacer">
-               <property name="orientation">
-                <enum>Qt::Horizontal</enum>
-               </property>
-               <property name="sizeHint" stdset="0">
-                <size>
-                 <width>50</width>
-                 <height>20</height>
-                </size>
-               </property>
-              </spacer>
-             </item>
-             <item>
-              <widget class="QPushButton" name="removeButton_pushButton">
-               <property name="enabled">
-                <bool>false</bool>
-               </property>
-               <property name="sizePolicy">
-                <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
-                 <horstretch>0</horstretch>
-                 <verstretch>0</verstretch>
-                </sizepolicy>
-               </property>
-               <property name="text">
-                <string>Remove Button</string>
-               </property>
-              </widget>
-             </item>
-             <item>
-              <widget class="QPushButton" name="resetSettings_pushButton">
-               <property name="sizePolicy">
-                <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
-                 <horstretch>0</horstretch>
-                 <verstretch>0</verstretch>
-                </sizepolicy>
-               </property>
-               <property name="text">
-                <string>Reset Settings</string>
-               </property>
-              </widget>
-             </item>
-             <item>
-              <widget class="QPushButton" name="applySettings_pushButton">
-               <property name="sizePolicy">
-                <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
-                 <horstretch>0</horstretch>
-                 <verstretch>0</verstretch>
-                </sizepolicy>
-               </property>
-               <property name="text">
-                <string>Apply Settings</string>
-               </property>
-              </widget>
-             </item>
-            </layout>
-           </item>
-           <item row="0" column="1">
-            <layout class="QGridLayout" name="videoSettings_gridLayout">
-             <item row="2" column="0">
-              <widget class="QLabel" name="trim_Label">
-               <property name="text">
-                <string>Trim</string>
-               </property>
-              </widget>
-             </item>
-             <item row="3" column="0">
-              <widget class="QLabel" name="videoPath_Label">
-               <property name="text">
-                <string>Path</string>
-               </property>
-              </widget>
-             </item>
-             <item row="3" column="1">
-              <widget class="QLineEdit" name="videoPath_lineEdit">
-               <property name="text">
-                <string/>
-               </property>
-              </widget>
-             </item>
-             <item row="1" column="0">
-              <widget class="QLabel" name="constrast_Label">
-               <property name="text">
-                <string>Contrast</string>
-               </property>
-              </widget>
-             </item>
-             <item row="0" column="0">
-              <widget class="QLabel" name="brightness_label">
-               <property name="text">
-                <string>Brightness</string>
-               </property>
-              </widget>
-             </item>
-             <item row="3" column="2">
-              <widget class="QPushButton" name="openVideo_pushVideo">
-               <property name="text">
-                <string>Open Video</string>
-               </property>
-              </widget>
-             </item>
-             <item row="2" column="1" colspan="2">
-              <widget class="QSlider" name="trim_Slider">
-               <property name="orientation">
-                <enum>Qt::Horizontal</enum>
-               </property>
-              </widget>
-             </item>
-             <item row="1" column="1" colspan="2">
-              <widget class="QSlider" name="contrast_Slider">
-               <property name="orientation">
-                <enum>Qt::Horizontal</enum>
-               </property>
-              </widget>
-             </item>
-             <item row="0" column="1" colspan="2">
-              <widget class="QSlider" name="brightness_Slider">
-               <property name="value">
-                <number>50</number>
-               </property>
-               <property name="sliderPosition">
-                <number>50</number>
-               </property>
-               <property name="tracking">
-                <bool>true</bool>
-               </property>
-               <property name="orientation">
-                <enum>Qt::Horizontal</enum>
-               </property>
-              </widget>
-             </item>
-            </layout>
-           </item>
           </layout>
          </widget>
+        </item>
+        <item>
+         <layout class="QHBoxLayout" name="addButton_hbox">
+          <item>
+           <spacer name="horizontalSpacer_3">
+            <property name="orientation">
+             <enum>Qt::Horizontal</enum>
+            </property>
+            <property name="sizeHint" stdset="0">
+             <size>
+              <width>40</width>
+              <height>20</height>
+             </size>
+            </property>
+           </spacer>
+          </item>
+          <item>
+           <widget class="QPushButton" name="addButton_button">
+            <property name="text">
+             <string>Add Button</string>
+            </property>
+           </widget>
+          </item>
+         </layout>
+        </item>
+        <item>
+         <spacer name="verticalSpacer">
+          <property name="orientation">
+           <enum>Qt::Vertical</enum>
+          </property>
+          <property name="sizeHint" stdset="0">
+           <size>
+            <width>20</width>
+            <height>40</height>
+           </size>
+          </property>
+         </spacer>
         </item>
        </layout>
       </widget>
      </widget>
     </item>
     <item>
-     <layout class="QHBoxLayout" name="horizontalLayout_4">
+     <layout class="QHBoxLayout" name="windowFooter_hbox">
       <item>
-       <spacer name="horizontalSpacer_3">
+       <spacer name="windowFooter_spacer">
         <property name="orientation">
          <enum>Qt::Horizontal</enum>
         </property>
@@ -243,38 +247,14 @@
        </spacer>
       </item>
       <item>
-       <widget class="QPushButton" name="addButton_pushButton">
-        <property name="text">
-         <string>Add Button</string>
-        </property>
-       </widget>
-      </item>
-     </layout>
-    </item>
-    <item>
-     <layout class="QHBoxLayout" name="horizontalLayout_2">
-      <item>
-       <spacer name="horizontalSpacer_2">
-        <property name="orientation">
-         <enum>Qt::Horizontal</enum>
-        </property>
-        <property name="sizeHint" stdset="0">
-         <size>
-          <width>40</width>
-          <height>20</height>
-         </size>
-        </property>
-       </spacer>
-      </item>
-      <item>
-       <widget class="QPushButton" name="hologramPreview_pushButton">
+       <widget class="QPushButton" name="hologramPreview_button">
         <property name="text">
          <string>Hologram Preview</string>
         </property>
        </widget>
       </item>
       <item>
-       <widget class="QPushButton" name="export_pushButton">
+       <widget class="QPushButton" name="export_button">
         <property name="text">
          <string>Export</string>
         </property>
@@ -289,8 +269,8 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>817</width>
-     <height>25</height>
+     <width>800</width>
+     <height>22</height>
     </rect>
    </property>
    <widget class="QMenu" name="menuFile">
