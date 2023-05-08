@@ -84,11 +84,8 @@ void ConfigWindow::on_export_pushButton_clicked(){
     // validate directory
     if (!saved_path.isEmpty()) {
         QFile file(saved_path.toLocalFile() + "/" + cleanedConfigName + ".xml");
-        qDebug()<<saved_path.toLocalFile();
-        qDebug()<<saved_path.path();
 
-        if (file.open(QIODevice::WriteOnly | QIODevice::Truncate | QIODevice::Text)) {
-            qDebug()<<"yo";
+        if (file.open(QIODevice::WriteOnly | QIODevice::Truncate | QIODevice::Text)) { 
             QXmlStreamWriter xml(&file);
             xml.setAutoFormatting(true);
 

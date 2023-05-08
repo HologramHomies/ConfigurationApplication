@@ -86,7 +86,6 @@ void Button_GroupBox::on_openFile_pushButton_clicked()
     trim_slider->setMaximumValue(100);
 
     connect(trim_slider,&ctkRangeSlider::minimumPositionChanged, [=](int value) {
-        qDebug() << "New minimum value:" << value;
         //this->end_pos = value;
         int new_start = (value*media_player->duration())/100;
         ui->seeker_slider->setMinimum(new_start);
@@ -94,7 +93,6 @@ void Button_GroupBox::on_openFile_pushButton_clicked()
     });
 
     connect(trim_slider,&ctkRangeSlider::maximumPositionChanged, [=](int value) {
-        qDebug() << "New Maximum value:" << value;
         int new_end = (value*media_player->duration())/100;
         ui->seeker_slider->setMaximum(new_end);
         //this->start_pos = value;
