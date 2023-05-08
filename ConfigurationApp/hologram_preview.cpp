@@ -27,11 +27,11 @@ void hologram_preview::setting_buttons(int id, QString video_path,int brightness
 
     QPushButton* preview_button = findChild<QPushButton*>("pushButton" + QString::number(id));
     connect(preview_button, &QPushButton::clicked, this, [=]() {
-        qDebug() << "Button" << id << "clicked";
+
         media_player->setVideoOutput(video_widget);
         media_player->setMedia(QUrl(video_path));
         video_widget->setBrightness(brightness);
-        //video_widget->
+
         video_widget->setContrast(contrast);
 
 
@@ -45,8 +45,6 @@ void hologram_preview::setting_buttons(int id, QString video_path,int brightness
 }
 
 void hologram_preview::onWindowClosed() {
-    qDebug() << "Window closed!";
-    // Add your code here to handle the window closing event
 }
 
 

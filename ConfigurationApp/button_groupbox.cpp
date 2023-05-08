@@ -11,11 +11,6 @@
 #include "ctkrangeslider.h"
 
 
-/* TODO
- *
-
-
-*/
 
 Button_GroupBox::Button_GroupBox(QWidget *parent) :
     QGroupBox(parent),
@@ -61,7 +56,6 @@ void Button_GroupBox::on_openFile_pushButton_clicked()
 
     video_widget->show();
     media_player->play();
-    //media_player->pause();
 
     //Pause/Play Button Functionality
     connect(ui->pause_pushButton,&QPushButton::clicked,this,&Button_GroupBox::playClicked);
@@ -112,8 +106,6 @@ void Button_GroupBox::on_openFile_pushButton_clicked()
 
 
     connect(ui->seeker_slider,&QSlider::valueChanged, [=](int value) {
-        qDebug() << "New Current value:" << value;
-        qDebug() << "New Maximum seeker value:" << ui->seeker_slider->maximum();
         if(value >= ui->seeker_slider->maximum()){
             media_player->stop();
         }

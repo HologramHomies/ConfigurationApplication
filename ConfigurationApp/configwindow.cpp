@@ -16,8 +16,6 @@ ConfigWindow::ConfigWindow(QWidget *parent) :
 {
     ui->setupUi(this);
     ui->scrollArea->setWidgetResizable(true);
-    // QWidget *widget = new QWidget();
-    // QVBoxLayout *scroll_layout = new QVBoxLayout(this->widget);
 }
 
 ConfigWindow::~ConfigWindow()
@@ -167,7 +165,6 @@ void ConfigWindow::on_hologramPreview_pushButton_clicked()
        int contrast = this->button_GroupBoxes[i]->getContrast();
        int start_pos = this->button_GroupBoxes[i]->getStartPos();
        int end_pos = this->button_GroupBoxes[i]->getEndPos();
-       qDebug()<<brightness;
 //       Button *button = new Button(id, video_path, brightness, contrast);
 //       prev_buttons.append(button);
        h->setting_buttons(id, video_path, brightness, contrast,start_pos,end_pos);
